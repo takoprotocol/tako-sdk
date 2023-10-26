@@ -1,0 +1,7 @@
+# Nodejs
+node_modules/*
+src/*
+.vscode/*
+test/*
+tsconfig.json
+.gitattributes

@@ -9,7 +9,10 @@ class TakoOpenCuration {
 
     constructor(network: Network) {
         this._network = network;
-
         this._lensOpenCuration = new LensOpenCuration(network);
     }
+    public get lensOpenCuration(): LensOpenCuration {
+        return this._lensOpenCuration;
+    }
 }
+export { TakoOpenCuration }

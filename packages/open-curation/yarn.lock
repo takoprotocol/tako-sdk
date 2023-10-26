@@ -100,9 +100,9 @@ proxy-from-env@^1.1.0:
   integrity sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==
 
 tako-js@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/tako-js/-/tako-js-1.0.2.tgz#bad93ee2092e9417a2095815863dc8421d504ea5"
-  integrity sha512-ebW7u0VCmt1TowCt6wDooQuWqkN1Puc0I6fYAEjIEpt7ejbArbAd/jkUWk7A20wx5mTYzwEii9hR+C/PoFc3AA==
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/tako-js/-/tako-js-1.0.3.tgz#4eb7803b95b726f81678c471cd21df6363ea162e"
+  integrity sha512-Dv49C/RsPoWxWuQqtPE5XjebH2AaSdsKK3PMTA2GWMebAxOrt75a6KPT+yKd54vbfzXLW1gLZ2Av8M7bppmtZw==
   dependencies:
     axios "^1.5.1"
     ethers "^6.8.0"

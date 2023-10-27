@@ -16,3 +16,6 @@ async function allBids() {
     const res = await a.get();
     console.log(JSON.stringify(res));
 }
+async function publishQuotePost() {
+
+}

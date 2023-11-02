@@ -10,7 +10,7 @@ import {
 } from '@lens-protocol/metadata';
 import * as ethers from 'ethers';
 
-class LensV2 {
+class LensProtocolV2 {
     private _lensClient: LensClient;
 
     constructor(network: Network) {
@@ -24,7 +24,6 @@ class LensV2 {
         this._lensClient = new LensClient({
             environment: environment
         });
-
     }
     private typeGuard<T extends MediaAudio | MediaImage | MediaVideo>(type: object, toBeDetermined: any): toBeDetermined is T {
         const values = Object.values(type) as string[];
@@ -123,7 +122,13 @@ class LensV2 {
             throw error;
         }
     }
+    public async fetchPublication(contentId: string): Promise<LensProtocol.AnyPublicationFragment | null> {
+        const result = await this._lensClient.publication.fetch({
+            forId: contentId,
+        });
+        return result;
+    }
 }
 export { MediaImageMimeType, MediaAudioMimeType, MediaVideoMimeType, PublicationMetadata }
 export { AuthChallengeFragment }
-export { LensV2 }
+export { LensProtocolV2 }

@@ -4,6 +4,23 @@ enum Ecosystem {
     FARCASTER = 'farcaster',
     LENS_OPEN_CURATION = "lens/open_curation"
 }
+type TakoHubInfo = {
+    chain_id: number,
+    contract: string,
+    chain: string,
+}
+type VerifyBidResponse = {
+    chainId: number,
+    contract: string,
+    relayer: string,
+    signature: Signature,
+}
+type Signature = {
+    r: string,
+    s: string,
+    v: number,
+    deadline: number,
+}
 
 function getTakoV2Url(network: Network): string {
     switch (network) {
@@ -17,4 +34,4 @@ function getTakoV2Url(network: Network): string {
             return "https://api.takoyaki.so/v2/";
     }
 }
-export { Ecosystem, getTakoV2Url }
+export { Ecosystem, getTakoV2Url, TakoHubInfo, VerifyBidResponse, Signature }

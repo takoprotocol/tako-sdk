@@ -57,7 +57,6 @@ class LensOpenCuration {
         return await this.generateBidBatchAbiData([contentId], [bidToken], [bidAmount], merkleIndex, merkleProof);
     }
     public async generateBidBatchAbiData(contentIds: string[], bidTokens: string[], bidAmounts: bigint[], merkleIndex?: number, merkleProof?: string[]): Promise<string> {
-        await this.getTakoHubInfo();
         if (contentIds.length != bidTokens.length || contentIds.length != bidAmounts.length || contentIds.length == 0) {
             throw "invalid input parameters";
         }
@@ -113,8 +112,12 @@ class LensOpenCuration {
         return BigInt(1000000);
     }
     public async generateTransaction(from: string, abiData: string, value: bigint, gasLimit: bigint): Promise<ethers.ethers.providers.TransactionRequest> {
+        await this.getTakoHubInfo();
         if (this._web3Provider == null) {
             throw "please set a provider before calling this function";
+        }
+        if (this._takoHubInfo.contract == "" || this._takoHubInfo.chain_id == 0) {
+            throw "can't get tako hub info";
         }
         const feeData = await this._web3Provider.getFeeData();
         const nonce = await this._web3Provider.getTransactionCount(from);

@@ -148,6 +148,12 @@ class LensOpenCuration {
             [index, curatorId, relayer, contentId, [signature.v, signature.r, signature.s, signature.deadline]]);
         return abiData;
     }
+    public async curatorStatus(index: number, profileId: number) {
+        return await this._takoV2.lensOpenCurationV2.curatorStatus(index, profileId);
+        //passed: claimed
+        //not enrolled:Curated but not eligible
+        //enrolled, best:claimable
+    }
 }
 
 export { LensOpenCuration }

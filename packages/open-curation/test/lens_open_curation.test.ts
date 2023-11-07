@@ -14,7 +14,7 @@ ecosystem.provider = web3Provider;
 
 (async () => {
     try {
-        claimReward().catch(error => {
+        curatorStatus().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {
@@ -93,4 +93,10 @@ async function claimReward() {
     const signedRawTransaction = await wallet.signTransaction(transaction);
     //const res = await web3Provider.sendTransaction(signedRawTransaction);
     //console.log(`${JSON.stringify(res)}`);
+}
+async function curatorStatus() {
+    const index = 5;
+    const profileId = 445;
+    const res = await ecosystem.curatorStatus(index, profileId);
+    console.log(`${JSON.stringify(res)}`);
 }

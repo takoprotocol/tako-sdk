@@ -355,9 +355,9 @@
   integrity sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==
 
 "@lens-protocol/client@^2.0.0-alpha.15":
-  version "2.0.0-alpha.16"
-  resolved "https://registry.yarnpkg.com/@lens-protocol/client/-/client-2.0.0-alpha.16.tgz#3b083be74940445c98eb61329bacc2a8acf9deac"
-  integrity sha512-oPmXAo8J++ct6bvw72JX03y2hoVW81Vor+Xdfw3rikRPU4uSk10TxoeZOH2uhkqYxhspfHKEugFEs6MbgbXlqw==
+  version "2.0.0-alpha.19"
+  resolved "https://registry.yarnpkg.com/@lens-protocol/client/-/client-2.0.0-alpha.19.tgz#d33cd868155edbb92e48a4eb56340376444133a3"
+  integrity sha512-VU4ypKY9nxnSc1/e6N6U2u/Ejwm518iULZzvzGNHpNF7GAegMFhOOJuhnllbYhUVgKZ0qMbQD+k3SkNdGWGLmA==
   dependencies:
     "@ethersproject/address" "^5.7.0"
     "@ethersproject/bignumber" "^5.7.0"
@@ -365,7 +365,7 @@
     "@ethersproject/hash" "^5.7.0"
     "@ethersproject/providers" "^5.7.2"
     "@ethersproject/wallet" "^5.7.0"
-    "@lens-protocol/gated-content" "0.3.3-alpha.11"
+    "@lens-protocol/gated-content" "0.3.3-alpha.13"
     "@lens-protocol/shared-kernel" "0.11.0-alpha.6"
     "@lens-protocol/storage" "0.7.5-alpha.4"
     graphql "^16.7.1"
@@ -375,10 +375,10 @@
     tslib "^2.6.2"
     zod "^3.22.0"
 
-"@lens-protocol/gated-content@0.3.3-alpha.11":
-  version "0.3.3-alpha.11"
-  resolved "https://registry.yarnpkg.com/@lens-protocol/gated-content/-/gated-content-0.3.3-alpha.11.tgz#0862077fa401a138695427608a96824668fb7942"
-  integrity sha512-xGJEU5BTLOOGk/FtCSuMIyU+bm/XIfgJKcmvHkoGLgc6jqNiOPHKOauS2mkVQ/d8F3tX+vqR+88uAJ1JiSDa4g==
+"@lens-protocol/gated-content@0.3.3-alpha.13":
+  version "0.3.3-alpha.13"
+  resolved "https://registry.yarnpkg.com/@lens-protocol/gated-content/-/gated-content-0.3.3-alpha.13.tgz#f862e1a0bae04884a2fce74440f3efcf64528dff"
+  integrity sha512-DBYpdY12LeU5p/ksHlXQI600DQQPULLDVtyuoNcrgCUyEgmZ22qgZZf2OBK60Vg1VoRbLluOjGby17VaSN4BgA==
   dependencies:
     "@lens-protocol/shared-kernel" "0.11.0-alpha.6"
     "@lens-protocol/storage" "0.7.5-alpha.4"
@@ -992,9 +992,9 @@ available-typed-arrays@^1.0.5:
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
 axios@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.5.1.tgz#11fbaa11fc35f431193a9564109c88c1f27b585f"
-  integrity sha512-Q28iYCWzNHjAm+yEAot5QaAMxhMghWLFVf7rRdwhUI+c2jix2DUXjAHXVi+s1ibs3mjPO/cCgbA++3BjD0vP/A==
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.0.tgz#f1e5292f26b2fd5c2e66876adc5b06cdbd7d2102"
+  integrity sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==
   dependencies:
     follow-redirects "^1.15.0"
     form-data "^4.0.0"
@@ -1144,9 +1144,9 @@ ethers@^5.7.1:
     "@ethersproject/wordlists" "5.7.0"
 
 ethers@^6.8.0:
-  version "6.8.0"
-  resolved "https://registry.yarnpkg.com/ethers/-/ethers-6.8.0.tgz#0a26f57e96fd697cefcfcef464e0c325689d1daf"
-  integrity sha512-zrFbmQRlraM+cU5mE4CZTLBurZTs2gdp2ld0nG/f3ecBK+x6lZ69KSxBqZ4NjclxwfTxl5LeNufcBbMsTdY53Q==
+  version "6.8.1"
+  resolved "https://registry.yarnpkg.com/ethers/-/ethers-6.8.1.tgz#ee2a1a39b5f62a13678f90ccd879175391d0a2b4"
+  integrity sha512-iEKm6zox5h1lDn6scuRWdIdFJUCGg3+/aQWu0F4K0GVyEZiktFkqrJbRjTn1FlYEPz7RKA707D6g5Kdk6j7Ljg==
   dependencies:
     "@adraffy/ens-normalize" "1.10.0"
     "@noble/curves" "1.2.0"
@@ -1616,9 +1616,9 @@ string_decoder@~1.1.1:
     safe-buffer "~5.1.0"
 
 tako-js@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/tako-js/-/tako-js-1.0.4.tgz#31a7d0ad8f3571443be3045d7e07299ff6dd5ebd"
-  integrity sha512-aa305tMrz8esAo5Oks0qiwvZaJuaJUiZHAznqXhp/2fFnYrt9OFqwMMXeHwIXJR72DPPq9h0EWQLp1V3pUTItw==
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/tako-js/-/tako-js-1.0.6.tgz#df981fe991cf9181ffe9065e9b4aaacf76090766"
+  integrity sha512-DO+ymtTXDEz+po4V1jPnC7A2AHhWRgsdVMD6vqHefB+dWEmffnef854IRaxCpsGdTLO2RI8bb2Yb/HL30EE+Sw==
   dependencies:
     axios "^1.5.1"
     ethers "^6.8.0"

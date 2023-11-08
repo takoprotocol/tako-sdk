@@ -34,8 +34,8 @@ class LensOpenCuration {
     public get allBids(): AllBids {
         return this._takoV2.lensOpenCurationV2.allBids;
     }
-    public async uploadToBundlr(metaData: any): Promise<string> {
-        const url = `${this._url}/upload_bundlr`;
+    public async uploadToBundlr(metaData: any) {
+        const url = `${this._url}upload_bundlr`;
         const res = await utils.post(url, metaData);
         return res;
     }

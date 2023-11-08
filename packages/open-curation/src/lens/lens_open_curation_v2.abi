@@ -2,11 +2,6 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "initLensHub",
-        "type": "address"
-      },
-      {
         "internalType": "bytes32",
         "name": "initMerkleRoot",
         "type": "bytes32"
@@ -543,6 +538,34 @@
       },
       {
         "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "contentId",
+        "type": "string"
+      }
+    ],
+    "name": "loanWithRelayer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "curatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
         "name": "relayer",
         "type": "address"
       },
@@ -681,24 +704,6 @@
       }
     ],
     "name": "setGovernance",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "hub",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "collectModule",
-        "type": "address"
-      }
-    ],
-    "name": "setLensContracts",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

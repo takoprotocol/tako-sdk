@@ -1,19 +1,18 @@
-# tako-js
-[![npm version](https://img.shields.io/badge/npm-1.0.1-brightgreen.svg)](https://www.npmjs.com/package/tako-js)
+# tako-open-curation
+[![npm version](https://img.shields.io/badge/npm-1.0.0-brightgreen.svg)](https://www.npmjs.com/package/tako-open-curation)
 
-Tako API Client, which facilitates interaction with Tako API without managing cumbersome APIs, helps you focus on your business.
+Tako Open Curation API Client, which facilitates interaction with Tako Open Curation API without managing cumbersome APIs, helps you focus on your business.
 
 ## Install
 ```javascript
-npm  install tako-js
+npm  install tako-open-curation
 ```
 
 ## Usage
 ```javascript
-import { CONSTANT, TakoV2 } from  'tako-js';
-const tako = new  TakoV2(CONSTANT.Network.LOCALHOST);
-const lens = tako.lens;
-const farcaster = tako.farcaster;
+import { CONSTANT, TakoOpenCuration } from 'tako-open-curation';
+const tako = new TakoOpenCuration(CONSTANT.Network.TESTNET);
 const lensOpenCuration = tako.lensOpenCuration;
-const res = await  tako.whitelistInfo(address);
+const a = await lensOpenCuration.allBids.DESC.status(CONSTANT.OpenCurationAllBidsStatus.All);
+const res = await a.get();
 ```

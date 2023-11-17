@@ -2,6 +2,7 @@ import { json } from 'stream/consumers';
 import { Network } from './constant';
 import { LensOpenCuration } from './lens';
 import { TakoV2, LensOpenCurationV2 } from 'tako-js';
+import * as proxy from 'node-global-proxy';
 
 class TakoOpenCuration {
     private _network: Network;
@@ -15,6 +16,13 @@ class TakoOpenCuration {
     }
     public get lensOpenCuration(): LensOpenCuration {
         return this._lensOpenCuration;
+    }
+    public setProxy(url: string) {
+        proxy.default.setConfig(url);
+        proxy.default.start();
+    }
+    public removeProxy() {
+        proxy.default.stop();
     }
 }
 export { TakoOpenCuration }

@@ -1,4 +1,6 @@
 import { CONSTANT, TakoOpenCuration } from '../src';
+//import { CONSTANT, TakoOpenCuration } from '../build/src';
+
 import * as fs from 'fs';
 import * as path from 'path';
 const tako = new TakoOpenCuration(CONSTANT.Network.LOCALHOST);
@@ -17,14 +19,21 @@ ecosystem.provider = web3Provider;
 //2 0x01bd-0x01-DA-606ded9f
 (async () => {
     try {
+        //tako.setProxy("http://127.0.0.1:19180");
         privateKey = await getPrivateKey();
-        claimReward().catch(error => {
+        auth().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {
         console.log(`error:${error}`);
     }
 })()
+async function httpTest() {
+    tako.setProxy("http://127.0.0.1:19180");
+    const res = await ecosystem.testGraphql();
+    console.log(JSON.stringify(res));
+    //await utils.get("https://google.com")
+}
 async function getPrivateKey() {
     const fileName = 'privatekey';
     let base = __dirname;
@@ -51,9 +60,9 @@ async function publishQuotePost() {
     await auth();
     const typedData = await lensV2.generateMomokaQuoteTypedData(postUriWithOutMedia, "0x01bd-0x01-DA-da16dd1b");
     const signature = await lensV2.signTypeData(privateKey, typedData.typedData);
-    const res = await lensV2.broadcastQuotePost(typedData.id, signature);
-    console.log(`published quote post:${res.id}`);
-    console.log(`${JSON.stringify(res)}`);
+    //const res = await lensV2.broadcastQuotePost(typedData.id, signature);
+    //console.log(`published quote post:${res.id}`);
+    //console.log(`${JSON.stringify(res)}`);
 }
 async function uploadToBundr() {
     const lensV2 = ecosystem.lensProtocolV2;
@@ -78,8 +87,8 @@ async function createBidBatch() {
     const transaction = await ecosystem.generateTransaction(address, abiData, totalAmount, estimatedGas * BigInt(3));
     const wallet = new ethers.Wallet(privateKey);
     const signedRawTransaction = await wallet.signTransaction(transaction);
-    //const res = await web3Provider.sendTransaction(signedRawTransaction);
-    //console.log(`${JSON.stringify(res)}`);
+    const res = await web3Provider.sendTransaction(signedRawTransaction);
+    console.log(`${JSON.stringify(res)}`);
 }
 async function createBid() {
     const takoHubInfo = await ecosystem.takoHubInfo();
@@ -111,4 +120,8 @@ async function curatorStatus() {
     const profileId = 445;
     const res = await ecosystem.curatorStatus(index, profileId);
     console.log(`${JSON.stringify(res)}`);
+}
+async function loanWithRelayer() {
+    const abiData = await ecosystem.generateLoanWithRelayer();
+    console.log(`${abiData}`);
 }

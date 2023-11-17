@@ -1,5 +1,5 @@
 {
-  "name": "@tako-protocol/open-curation",
+  "name": "tako-open-curation",
   "version": "1.0.0",
   "main": "build/src/index.js",
   "license": "MIT",
@@ -16,6 +16,8 @@
     "@lens-protocol/client": "^2.0.0-alpha.15",
     "@lens-protocol/metadata": "^0.1.0-alpha.31",
     "axios": "^1.5.1",
+    "graphql-request": "^6.1.0",
+    "node-global-proxy": "^1.0.1",
     "tako-js": "^1.0.6"
   }
 }

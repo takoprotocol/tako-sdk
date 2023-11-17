@@ -4,6 +4,7 @@ import { env, utils, TakoHubInfo, VerifyBidResponse, Signature } from '../utils'
 import { LensProtocolV2 } from '../libs';
 import * as fs from 'fs';
 import * as ethers from 'ethers';
+import { gql, GraphQLClient } from 'graphql-request'
 
 //this is lens open curation v2
 class LensOpenCuration {
@@ -148,11 +149,36 @@ class LensOpenCuration {
             [index, curatorId, relayer, contentId, [signature.v, signature.r, signature.s, signature.deadline]]);
         return abiData;
     }
+    public async generateLoanWithRelayer() {
+        const abiData = this._iface.encodeFunctionData("loanWithRelayer",
+            [1, 455, "0xC439530f6A0582Bc09da70A3e52Ace7dF4b58A32", "0x01bd-0x01-DA-606ded9f"]);
+        return abiData;
+    }
     public async curatorStatus(index: number, profileId: number) {
         return await this._takoV2.lensOpenCurationV2.curatorStatus(index, profileId);
         //passed: claimed
         //not enrolled:Curated but not eligible
         //enrolled, best:claimable
+    }
+    public async testGraphql() {
+        const endpoint = `https://api-v2-mumbai.lens.dev`
+        const graphQLClient = new GraphQLClient(endpoint)
+        const query = gql`
+        query profiles {
+            profiles(request: {where:{
+              ownedBy: "0x86e3108ccC911B8d42c8a19ca481Dd885C2BcE62"
+            }}) {
+              items {
+                id
+              }
+            }
+          }
+`
+        const variables = {
+            title: `Inception`,
+        }
+        const data = await graphQLClient.request(query, variables);
+        return data;
     }
 }
 

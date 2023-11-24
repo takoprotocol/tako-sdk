@@ -1,5 +1,5 @@
 # tako-open-curation
-[![npm version](https://img.shields.io/badge/npm-1.0.0-brightgreen.svg)](https://www.npmjs.com/package/tako-open-curation)
+[![npm version](https://img.shields.io/badge/npm-1.0.1-brightgreen.svg)](https://www.npmjs.com/package/tako-open-curation)
 
 Tako Open Curation API Client, which facilitates interaction with Tako Open Curation API without managing cumbersome APIs, helps you focus on your business.
 

@@ -1783,10 +1783,10 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-tako-js@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/tako-js/-/tako-js-1.0.6.tgz#df981fe991cf9181ffe9065e9b4aaacf76090766"
-  integrity sha512-DO+ymtTXDEz+po4V1jPnC7A2AHhWRgsdVMD6vqHefB+dWEmffnef854IRaxCpsGdTLO2RI8bb2Yb/HL30EE+Sw==
+tako-js@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/tako-js/-/tako-js-1.0.7.tgz#d6f4b378413d9fd0299a4fa590a7c95f5cd919cf"
+  integrity sha512-xP3iWzhiDP/u/KyRYXcLz4OSU64uDg/mnjt2AN9pG1TOdoq9Ft2w4Eo+vBscMT6CEkpTaFwlhCoP8BI8/f+CTA==
   dependencies:
     axios "^1.5.1"
     ethers "^6.8.0"

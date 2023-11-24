@@ -25,13 +25,13 @@ type Signature = {
 function getTakoV2Url(network: Network): string {
     switch (network) {
         case Network.TESTNET:
-            return "https://testapi.takoyaki.so/v2/";
+            return "https://testapi.tako.so/v2/";
         case Network.MAINNET:
-            return "https://api.takoyaki.so/v2/";
+            return "https://api.tako.so/v2/";
         case Network.LOCALHOST:
             return "http://localhost:8000/v2/";
         default:
-            return "https://api.takoyaki.so/v2/";
+            return "https://testapi.tako.so/v2/";
     }
 }
 export { Ecosystem, getTakoV2Url, TakoHubInfo, VerifyBidResponse, Signature }

@@ -1,9 +1,9 @@
-import { CONSTANT, TakoOpenCuration } from '../src';
-//import { CONSTANT, TakoOpenCuration } from '../build/src';
+//import { CONSTANT, TakoOpenCuration } from '../src';
+import { CONSTANT, TakoOpenCuration } from '../build/src';
 
 import * as fs from 'fs';
 import * as path from 'path';
-const tako = new TakoOpenCuration(CONSTANT.Network.LOCALHOST);
+const tako = new TakoOpenCuration(CONSTANT.Network.TESTNET);
 const ecosystem = tako.lensOpenCuration;
 let privateKey = "";
 const address = "0xC439530f6A0582Bc09da70A3e52Ace7dF4b58A32";
@@ -21,7 +21,7 @@ ecosystem.provider = web3Provider;
     try {
         //tako.setProxy("http://127.0.0.1:19180");
         privateKey = await getPrivateKey();
-        auth().catch(error => {
+        curatorStatus().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {
@@ -44,7 +44,7 @@ async function getPrivateKey() {
     return prikey;
 }
 async function allBids() {
-    const a = await ecosystem.allBids.DESC.status(CONSTANT.OpenCurationAllBidsStatus.All);
+    const a = await ecosystem.allBids.DESC.status(CONSTANT.OpenCurationAllBidsStatus.All).ids([445]);
     const res = await a.get();
     console.log(JSON.stringify(res));
 }
@@ -75,13 +75,21 @@ async function registerQuotePost() {
     console.log(`${JSON.stringify(res)}`);
 }
 
-async function createBidBatch() {
+async function createBidBatchTest() {
+    const amounts = [BigInt(42000000000000000)];//0.04matic
+    const contentIds = ["0x01bd-0x01-DA-84dddefe"];//, "0x01bd-0x01-DA-da16dd1b"
+    await createBidBatch(amounts, contentIds);
+}
+async function createBidBatch(amounts: bigint[], contentIds: string[]) {
     const takoHubInfo = await ecosystem.takoHubInfo();
-    const amounts = [BigInt(110), BigInt(120)];
-    const totalAmount = amounts[0] + amounts[1];
+    let totalAmount = BigInt(0);
+    let bidTokens: string[] = [];
+    amounts.forEach(amount => {
+        totalAmount += amount;
+        bidTokens.push("0x0000000000000000000000000000000000000000");
+    })
 
-    const contentIds = ["0x01bd-0x01-DA-84dddefe", "0x01bd-0x01-DA-da16dd1b"];
-    const bidTokens = ["0x0000000000000000000000000000000000000000", "0x0000000000000000000000000000000000000000"];
+    //const bidTokens = ["0x0000000000000000000000000000000000000000", "0x0000000000000000000000000000000000000000"];
     const abiData = await ecosystem.generateBidBatchAbiData(contentIds, bidTokens, amounts);
     const estimatedGas = await ecosystem.estimateGas(address, takoHubInfo.contract, abiData, totalAmount);
     const transaction = await ecosystem.generateTransaction(address, abiData, totalAmount, estimatedGas * BigInt(3));
@@ -116,7 +124,7 @@ async function claimReward() {
     console.log(`${JSON.stringify(res)}`);
 }
 async function curatorStatus() {
-    const index = 1;
+    const index = 20;
     const profileId = 445;
     const res = await ecosystem.curatorStatus(index, profileId);
     console.log(`${JSON.stringify(res)}`);

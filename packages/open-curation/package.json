@@ -1,6 +1,6 @@
 {
   "name": "tako-open-curation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "build/src/index.js",
   "license": "MIT",
   "types": "build/src/index.d.ts",
@@ -18,6 +18,6 @@
     "axios": "^1.5.1",
     "graphql-request": "^6.1.0",
     "node-global-proxy": "^1.0.1",
-    "tako-js": "^1.0.6"
+    "tako-js": "^1.0.7"
   }
 }

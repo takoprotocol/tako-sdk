@@ -5,9 +5,10 @@
   "license": "MIT",
   "types": "build/src/index.d.ts",
   "scripts": {
-    "build": "yarn run rm && yarn run build-tsc",
+    "build": "yarn run rm && yarn run build-tsc && yarn run post-build",
     "rm": "rmdir /s /q .\\build\\src",
-    "build-tsc": "..\\..\\node_modules\\.bin\\tsc"
+    "build-tsc": "..\\..\\node_modules\\.bin\\tsc",
+    "post-build": "copy .\\src\\lens\\*.abi .\\build\\src\\lens"
   },
   "engines": {
     "node": ">=18.15.0"

@@ -9,9 +9,10 @@
         "noUnusedLocals": false,
         "noUnusedParameters": false,
         "noImplicitAny": false,
-        "declaration": true
+        "declaration": true,
+        "skipLibCheck": true,
     },
     "include": [
-        "src/**/*"
+        "src/",
     ],
 }

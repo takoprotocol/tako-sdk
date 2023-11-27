@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "esModuleInterop": true,
+        "target": "ES2022",
+        "rootDir": "./",
+        "outDir": "./build",
+        "strict": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "noImplicitAny": false,
+        "declaration": true,
+        "skipLibCheck": true,
+    },
+    "include": [
+        "src/",
+    ],
+}

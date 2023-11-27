@@ -1,5 +1,5 @@
-//import { CONSTANT, TakoOpenCuration } from '../src';
-import { CONSTANT, TakoOpenCuration } from '../build/src';
+import { CONSTANT, TakoOpenCuration } from '../src';
+//import { CONSTANT, TakoOpenCuration } from '../build/src';
 
 import * as fs from 'fs';
 import * as path from 'path';
@@ -21,7 +21,7 @@ ecosystem.provider = web3Provider;
     try {
         //tako.setProxy("http://127.0.0.1:19180");
         privateKey = await getPrivateKey();
-        curatorStatus().catch(error => {
+        createBidBatchTest().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {
@@ -76,7 +76,7 @@ async function registerQuotePost() {
 }
 
 async function createBidBatchTest() {
-    const amounts = [BigInt(42000000000000000)];//0.04matic
+    const amounts = [BigInt(43000000000000000)];//0.04matic
     const contentIds = ["0x01bd-0x01-DA-84dddefe"];//, "0x01bd-0x01-DA-da16dd1b"
     await createBidBatch(amounts, contentIds);
 }

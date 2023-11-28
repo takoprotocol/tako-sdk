@@ -1,14 +1,13 @@
 {
   "name": "tako-open-curation",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "build/src/index.js",
   "license": "MIT",
   "types": "build/src/index.d.ts",
   "scripts": {
-    "build": "yarn run rm && yarn run build-tsc && yarn run post-build",
+    "build": "yarn run rm && yarn run build-tsc",
     "rm": "rmdir /s /q .\\build\\src",
-    "build-tsc": "..\\..\\node_modules\\.bin\\tsc",
-    "post-build": "copy .\\src\\lens\\*.abi .\\build\\src\\lens"
+    "build-tsc": "..\\..\\node_modules\\.bin\\tsc"
   },
   "engines": {
     "node": ">=18.15.0"

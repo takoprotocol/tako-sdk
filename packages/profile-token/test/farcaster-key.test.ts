@@ -18,7 +18,7 @@ const addr2 = "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC";
     try {
         //tako.setProxy("http://127.0.0.1:19180");
         privateKey = await getPrivateKey();
-        creatorIdsOfOwner().catch(error => {
+        info().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {

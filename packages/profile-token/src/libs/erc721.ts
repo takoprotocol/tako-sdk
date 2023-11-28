@@ -2,10 +2,11 @@ import * as ethers from 'ethers';
 import * as fs from 'fs';
 import * as path from 'path';
 import { BaseContract } from './contract';
+import { erc721abi } from '../assets';
 
 class ERC721 extends BaseContract {
     constructor(contractAddress: string, chainId: number) {
-        super(contractAddress, chainId, "erc721.abi");
+        super(contractAddress, chainId, erc721abi);
     }
     public async ownerOf(tokenId: number): Promise<string> {
         const ownerOf = await this._contractInfo.contract.ownerOf(tokenId);

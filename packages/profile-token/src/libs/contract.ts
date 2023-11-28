@@ -6,7 +6,8 @@ class BaseContract {
     protected _web3Provider: ethers.Provider | null;
     protected _contractInfo: ContractInfo;
     constructor(contractAddress: string, chainId: number, fileName: string) {
-        const myABI = JSON.parse(fs.readFileSync(this.getAssetsPath(fileName)).toString());
+        //const myABI = JSON.parse(fs.readFileSync(this.getAssetsPath(fileName)).toString());
+        const myABI = JSON.parse(fileName);
         const iface = new ethers.Interface(myABI);
         this._web3Provider = null;
         this._contractInfo = {
@@ -63,7 +64,8 @@ class BaseContract {
         }
     }
     protected async initAbiFile(fileName: string) {
-        const myABI = JSON.parse(fs.readFileSync(this.getAssetsPath(fileName)).toString());
+        //const myABI = JSON.parse(fs.readFileSync(this.getAssetsPath(fileName)).toString());
+        const myABI = JSON.parse(fileName);
         this._contractInfo.iface = new ethers.Interface(myABI);
         this.updateContract();
     }

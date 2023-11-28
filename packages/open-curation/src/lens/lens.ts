@@ -4,7 +4,8 @@ import { env, utils, TakoHubInfo, VerifyBidResponse, Signature } from '../utils'
 import { LensProtocolV2 } from '../libs';
 import * as fs from 'fs';
 import * as ethers from 'ethers';
-import { gql, GraphQLClient } from 'graphql-request'
+import { gql, GraphQLClient } from 'graphql-request';
+import { lensOpenCurationV2Abi } from '../assets';
 
 //this is lens open curation v2
 class LensOpenCuration {
@@ -22,7 +23,8 @@ class LensOpenCuration {
         this._url = env.getTakoV2Url(network);
         this._takoV2 = takoV2;
         this._lensProtocolV2 = new LensProtocolV2(network);
-        const myABI = JSON.parse(fs.readFileSync(`${__dirname}/${this._ecosystem}.abi`).toString());
+        //const myABI = JSON.parse(fs.readFileSync(`${__dirname}/${this._ecosystem}.abi`).toString());
+        const myABI = JSON.parse(lensOpenCurationV2Abi);
         this._iface = new ethers.utils.Interface(myABI);
         this._web3Provider = null;
     }

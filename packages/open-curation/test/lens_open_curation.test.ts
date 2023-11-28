@@ -1,5 +1,5 @@
-import { CONSTANT, TakoOpenCuration } from '../src';
-//import { CONSTANT, TakoOpenCuration } from '../build/src';
+//import { CONSTANT, TakoOpenCuration } from '../src';
+import { CONSTANT, TakoOpenCuration } from '../build/src';
 
 import * as fs from 'fs';
 import * as path from 'path';
@@ -95,8 +95,8 @@ async function createBidBatch(amounts: bigint[], contentIds: string[]) {
     const transaction = await ecosystem.generateTransaction(address, abiData, totalAmount, estimatedGas * BigInt(3));
     const wallet = new ethers.Wallet(privateKey);
     const signedRawTransaction = await wallet.signTransaction(transaction);
-    const res = await web3Provider.sendTransaction(signedRawTransaction);
-    console.log(`${JSON.stringify(res)}`);
+    //const res = await web3Provider.sendTransaction(signedRawTransaction);
+    //console.log(`${JSON.stringify(res)}`);
 }
 async function createBid() {
     const takoHubInfo = await ecosystem.takoHubInfo();

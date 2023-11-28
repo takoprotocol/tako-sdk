@@ -1,73 +1,89 @@
 import * as ethers from 'ethers';
 import * as fs from 'fs';
 import * as path from 'path';
+import { BaseContract } from './contract';
 
-class ERC721 {
-    protected _iface: ethers.Interface;
-    protected _web3Provider: ethers.Provider | null;
-    protected _contractAddress = "";
-    protected _contract: ethers.Contract;
-    constructor(contractAddress: string) {
-        const myABI = JSON.parse(fs.readFileSync(this.getAssetsPath("erc721.abi")).toString());
-        this._iface = new ethers.Interface(myABI);
-        this._contractAddress = contractAddress;
-        this._web3Provider = null;
-        this._contract = new ethers.Contract(this._contractAddress, this._iface, this._web3Provider);
+class ERC721 extends BaseContract {
+    constructor(contractAddress: string, chainId: number) {
+        super(contractAddress, chainId, "erc721.abi");
     }
-    //get set
-    public set provider(provider: ethers.Provider) {
-        this._web3Provider = provider;
-        this.setContract();
-    }
-    public get provider(): ethers.Provider {
-        if (this._web3Provider) {
-            return this._web3Provider;
-        }
-        throw "no provider set";
-    }
-    public set contractAddress(contractAddress: string) {
-        this._contractAddress = contractAddress;
-        this.setContract();
-    }
-    public get contractAddress(): string {
-        return this._contractAddress;
-    }
-    //private
-    private getAssetsPath(fileName: string): string {
-        //const fileName = 'erc721.abi';
-        let base = __dirname;
-        for (let index = 0; index < 2; index++) {
-            base = path.dirname(base);
-        }
-        base = path.join(base, "assets");
-        return path.join(base, fileName);
-    }
-    private setContract() {
-        if (this._contractAddress != "" && this._web3Provider != null) {
-            this._contract = new ethers.Contract(this._contractAddress, this._iface, this._web3Provider);
-        }
-    }
-    //protected
-    protected checkContract() {
-        if (this._web3Provider == null) {
-            throw "please set a provider first";
-        }
-        if (this._contractAddress == "") {
-            throw "please set the contract address";
-        }
-    }
-    protected async initAbiFile(fileName: string) {
-        const myABI = JSON.parse(fs.readFileSync(this.getAssetsPath(fileName)).toString());
-        this._iface = new ethers.Interface(myABI);
-    }
-    //public
     public async ownerOf(tokenId: number): Promise<string> {
-        const ownerOf = await this._contract.ownerOf(tokenId);
+        const ownerOf = await this._contractInfo.contract.ownerOf(tokenId);
         return ownerOf;
     }
+    public async tokenURI(tokenId: number): Promise<string> {
+        const tokenUri = await this._contractInfo.contract.tokenURI(tokenId);
+        return tokenUri;
+    }
+    public async getApproved(tokenId: number): Promise<string> {
+        const res = await this._contractInfo.contract.getApproved(tokenId);
+        return res;
+    }
+    public async isApprovedForAll(owner: string, operator: string): Promise<boolean> {
+        const res = await this._contractInfo.contract.isApprovedForAll(owner, operator);
+        return res;
+    }
     public async balanceOf(address: string): Promise<number> {
-        const balance = await this._contract.balanceOf(address);
+        const balance = await this._contractInfo.contract.balanceOf(address);
         return balance;
     }
+    public approveAbiData(address: string, tokenId: number): string {
+        return this._contractInfo.iface.encodeFunctionData("approve",
+            [address, tokenId]);
+    }
+    public safeTransferFromAbiData(from: string, to: string, tokenId: number, data: Uint8Array): string {
+        if (data.length == 0) {
+            return this._contractInfo.iface.encodeFunctionData("safeTransferFrom(address _from, address _to, uint256 _tokenId)",
+                [from, to, tokenId]);
+        } else {
+            return this._contractInfo.iface.encodeFunctionData("safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes data)",
+                [from, to, tokenId, data]);
+        }
+    }
+    public setApprovalForAllAbiData(address: string, approved: boolean): string {
+        return this._contractInfo.iface.encodeFunctionData("setApprovalForAll",
+            [address, approved]);
+    }
+    public async name(): Promise<string> {
+        const res = await this._contractInfo.contract.name();
+        return res;
+    }
+    public async owner(): Promise<string> {
+        const res = await this._contractInfo.contract.owner();
+        return res;
+    }
+    public async symbol(): Promise<string> {
+        const res = await this._contractInfo.contract.symbol();
+        return res;
+    }
+    public async totalBurned(): Promise<number> {
+        const res = await this._contractInfo.contract.totalBurned();
+        return res;
+    }
+    public async totalMinted(): Promise<number> {
+        const res = await this._contractInfo.contract.totalMinted();
+        return res;
+    }
+    public async totalSupply(): Promise<number> {
+        const res = await this._contractInfo.contract.totalSupply();
+        return res;
+    }
+    public async explicitOwnershipOf(tokenId: number): Promise<[string, number, boolean, number]> {
+        const res = await this._contractInfo.contract.explicitOwnershipOf(tokenId);
+        return res;
+    }
+    public async explicitOwnershipsOf(tokenIds: number[]): Promise<[string, number, boolean, number][]> {
+        const res = await this._contractInfo.contract.explicitOwnershipsOf(tokenIds);
+        return res;
+    }
+    public async tokensOfOwner(owner: string): Promise<number[]> {
+        const res = await this._contractInfo.contract.tokensOfOwner(owner);
+        return res;
+    }
+    public async tokensOfOwnerIn(owner: string, start: number, stop: number): Promise<number[]> {
+        const res = await this._contractInfo.contract.tokensOfOwnerIn(owner, start, stop);
+        return res;
+    }
 }
+
 export { ERC721 }

@@ -5,10 +5,9 @@
   "license": "MIT",
   "types": "build/src/index.d.ts",
   "scripts": {
-    "build": "yarn run rm && yarn run build-tsc && yarn run post-build",
+    "build": "yarn run rm && yarn run build-tsc",
     "rm": "rmdir /s /q .\\build",
-    "build-tsc": "..\\..\\node_modules\\.bin\\tsc",
-    "post-build": "mkdir .\\build\\assets & copy .\\assets\\* .\\build\\assets\\*"
+    "build-tsc": "..\\..\\node_modules\\.bin\\tsc"
   },
   "dependencies": {
     "ethers": "^6.8.1"

@@ -1,8 +1,9 @@
 import { BaseContract } from '../libs';
+import { takoKeysV1abi } from '../assets';
 
 class TakoKeysV1 extends BaseContract {
     constructor() {
-        super("0xa513E6E4b8f2a923D98304ec87F64353C4D5C853", 31337, "tako-keys-v1.abi");
+        super("0x5FbDB2315678afecb367f032d93F642f64180aa3", 31337, takoKeysV1abi);
     }
     public async creatorBuyFeePercent(): Promise<bigint> {
         const res = await this._contractInfo.contract.creatorBuyFeePercent();
@@ -66,15 +67,16 @@ class TakoKeysV1 extends BaseContract {
         return this._contractInfo.iface.encodeFunctionData("createShares",
             [creatorId, supplyAmount, totalPrice]);
     }
-
-    //tobe test
+    public buySharesByAMMAbiData(creatorId: number, supplyAmount: number): string {
+        return this._contractInfo.iface.encodeFunctionData("buySharesByAMM",
+            [creatorId, supplyAmount]);
+    }
     public sellSharesByAMMAbiData(tokenIds: number[], priceLimit: bigint): string {
         return this._contractInfo.iface.encodeFunctionData("sellSharesByAMM",
             [tokenIds, priceLimit]);
     }
-    public buySharesByAMMAbiData(creatorId: number, supplyAmount: number): string {
-        return this._contractInfo.iface.encodeFunctionData("buySharesByAMM",
-            [creatorId, supplyAmount]);
+    public claimAbiData(): string {
+        return this._contractInfo.iface.encodeFunctionData("claim");
     }
 }
 export { TakoKeysV1 }

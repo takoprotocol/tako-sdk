@@ -2,7 +2,6 @@ import { Network } from '../constant';
 import { TakoV2, AllBids } from 'tako-js';
 import { env, utils, TakoHubInfo, VerifyBidResponse, Signature } from '../utils';
 import { LensProtocolV2 } from '../libs';
-import * as fs from 'fs';
 import * as ethers from 'ethers';
 import { gql, GraphQLClient } from 'graphql-request';
 import { lensOpenCurationV2Abi } from '../assets';
@@ -36,11 +35,6 @@ class LensOpenCuration {
     }
     public get allBids(): AllBids {
         return this._takoV2.lensOpenCurationV2.allBids;
-    }
-    public async uploadToBundlr(metaData: any) {
-        const url = `${this._url}upload_bundlr`;
-        const res = await utils.post(url, metaData);
-        return res;
     }
     public get lensProtocolV2(): LensProtocolV2 {
         return this._lensProtocolV2;

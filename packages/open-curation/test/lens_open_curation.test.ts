@@ -1,5 +1,5 @@
-//import { CONSTANT, TakoOpenCuration } from '../src';
-import { CONSTANT, TakoOpenCuration } from '../build/src';
+import { CONSTANT, TakoOpenCuration } from '../src';
+//import { CONSTANT, TakoOpenCuration } from '../build/src';
 
 import * as fs from 'fs';
 import * as path from 'path';
@@ -21,7 +21,7 @@ ecosystem.provider = web3Provider;
     try {
         //tako.setProxy("http://127.0.0.1:19180");
         privateKey = await getPrivateKey();
-        createBidBatchTest().catch(error => {
+        registerQuotePost().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {
@@ -64,19 +64,14 @@ async function publishQuotePost() {
     //console.log(`published quote post:${res.id}`);
     //console.log(`${JSON.stringify(res)}`);
 }
-async function uploadToBundr() {
-    const lensV2 = ecosystem.lensProtocolV2;
-    const metadata = lensV2.buildPostMetadata("quote without media,2023.11.08 07:01", []);
-    const txid = await ecosystem.uploadToBundlr(metadata);
-    console.log(JSON.stringify(txid));
-}
+
 async function registerQuotePost() {
-    const res = await ecosystem.register(2, "0x01bd-0x01-DA-606ded9f");
+    const res = await ecosystem.register(25, "0x01bd-0x01-DA-9323c7c9");
     console.log(`${JSON.stringify(res)}`);
 }
 
 async function createBidBatchTest() {
-    const amounts = [BigInt(43000000000000000)];//0.04matic
+    const amounts = [BigInt(110)];//0.04matic
     const contentIds = ["0x01bd-0x01-DA-84dddefe"];//, "0x01bd-0x01-DA-da16dd1b"
     await createBidBatch(amounts, contentIds);
 }
@@ -95,8 +90,8 @@ async function createBidBatch(amounts: bigint[], contentIds: string[]) {
     const transaction = await ecosystem.generateTransaction(address, abiData, totalAmount, estimatedGas * BigInt(3));
     const wallet = new ethers.Wallet(privateKey);
     const signedRawTransaction = await wallet.signTransaction(transaction);
-    //const res = await web3Provider.sendTransaction(signedRawTransaction);
-    //console.log(`${JSON.stringify(res)}`);
+    const res = await web3Provider.sendTransaction(signedRawTransaction);
+    console.log(`${JSON.stringify(res)}`);
 }
 async function createBid() {
     const takoHubInfo = await ecosystem.takoHubInfo();

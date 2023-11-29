@@ -1,3 +1,4 @@
+const takoKeysV1abi = `
 [
 	{
 		"inputs": [
@@ -710,3 +711,6 @@
 		"type": "function"
 	}
 ]
+`
+
+export { takoKeysV1abi }

@@ -18,7 +18,7 @@ const addr2 = "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC";
     try {
         //tako.setProxy("http://127.0.0.1:19180");
         privateKey = await getPrivateKey();
-        userClaimable().catch(error => {
+        claim().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {
@@ -69,15 +69,19 @@ async function createShares() {
 }
 async function buySharesByAMM() {
     const wallet = new ethers.Wallet(hardhatKey2);
-    const totalAmount = ethers.parseEther("0.1");//0.1eth
-    //value
-    //uint256 price = supply * money /(supply - supplyChangeAmount) - money;
-
-    // uint256 protocolFee = (price * protocolBuyFeePercent) / 1 ether;
-    //uint256 creatorFee = (price * creatorBuyFeePercent) / 1 ether;
-    //msg.value >= fee.price + fee.protocolFee + fee.creatorFee
-    const abiData = takoKeysV1.buySharesByAMMAbiData(1, 2);
-    //await sendTx(abiData, wallet);
+    const amount = 1;
+    const creatorId = 1;
+    const totalAmount = await takoKeysV1.getBuyPriceAfterFee(creatorId, amount);
+    const abiData = takoKeysV1.buySharesByAMMAbiData(creatorId, amount);
+    await sendTx(abiData, wallet, totalAmount);
+}
+async function sellSharesByAMM() {
+    const wallet = new ethers.Wallet(hardhatKey2);
+    const amount = 1;
+    const creatorId = 1;
+    const priceLimit = await takoKeysV1.getSellPriceAfterFee(creatorId, amount);
+    const abiData = takoKeysV1.sellSharesByAMMAbiData([0], priceLimit);
+    await sendTx(abiData, wallet, BigInt(0));
 }
 async function getBuyPrice() {
     const buyPrice = await takoKeysV1.getBuyPrice(1, 1);
@@ -91,5 +95,11 @@ async function getSellPrice() {
 }
 async function userClaimable() {
     const res = await takoKeysV1.userClaimable(addr1);
-    console.log(res);
+    console.log(`addr:${addr1} claimable:${res}`);
+}
+async function claim() {
+    await userClaimable();
+    const wallet = new ethers.Wallet(hardhatKey1);
+    const abiData = await takoKeysV1.claimAbiData();
+    await sendTx(abiData, wallet, BigInt(0));
 }

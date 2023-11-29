@@ -1,13 +1,11 @@
 import * as ethers from 'ethers';
-import * as fs from 'fs';
-import * as path from 'path';
 
 class BaseContract {
     protected _web3Provider: ethers.Provider | null;
     protected _contractInfo: ContractInfo;
-    constructor(contractAddress: string, chainId: number, fileName: string) {
+    constructor(contractAddress: string, chainId: number, abiStr: string) {
         //const myABI = JSON.parse(fs.readFileSync(this.getAssetsPath(fileName)).toString());
-        const myABI = JSON.parse(fileName);
+        const myABI = JSON.parse(abiStr);
         const iface = new ethers.Interface(myABI);
         this._web3Provider = null;
         this._contractInfo = {
@@ -46,6 +44,7 @@ class BaseContract {
         }
     }
     //protected
+    /*
     protected getAssetsPath(fileName: string): string {
         let base = __dirname;
         for (let index = 0; index < 2; index++) {
@@ -53,8 +52,7 @@ class BaseContract {
         }
         base = path.join(base, "assets");
         return path.join(base, fileName);
-    }
-    //protected
+    }*/
     protected checkContract() {
         if (this._web3Provider == null) {
             throw "please set a provider first";

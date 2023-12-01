@@ -145,11 +145,6 @@ class LensOpenCuration {
             [index, curatorId, relayer, contentId, [signature.v, signature.r, signature.s, signature.deadline]]);
         return abiData;
     }
-    public async generateLoanWithRelayer() {
-        const abiData = this._iface.encodeFunctionData("loanWithRelayer",
-            [1, 455, "0xC439530f6A0582Bc09da70A3e52Ace7dF4b58A32", "0x01bd-0x01-DA-606ded9f"]);
-        return abiData;
-    }
     public async curatorStatus(index: number, profileId: number) {
         return await this._takoV2.lensOpenCurationV2.curatorStatus(index, profileId);
         //passed: claimed

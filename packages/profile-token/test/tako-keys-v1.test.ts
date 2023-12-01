@@ -1,13 +1,13 @@
 import { TakoKeysV1 } from '../src';
+import { utils } from '../src';
 //import { TakoFarcaster } from '../build/src';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as ethers from 'ethers';
+import { Network } from '../src';
 let privateKey = "";
-const takoKeysV1 = new TakoKeysV1();
-const url = "http://127.0.0.1:8545";
-const web3Provider = new ethers.JsonRpcProvider(url);
-takoKeysV1.provider = web3Provider;
+let takoKeysV1: TakoKeysV1;
+
 const hardhatKey0 = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
 const hardhatKey1 = "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d";
 const hardhatKey2 = "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a";
@@ -18,14 +18,23 @@ const addr2 = "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC";
     try {
         //tako.setProxy("http://127.0.0.1:19180");
         privateKey = await getPrivateKey();
-        claim().catch(error => {
+        //const takoKeyContract = await utils.getTakoKeyContract(Network.LOCALHOST);
+        //takoKeysV1 = new TakoKeysV1(takoKeyContract.contract, takoKeyContract.chain_id);
+        takoKeysV1 = new TakoKeysV1("0x5FbDB2315678afecb367f032d93F642f64180aa3", 31337);
+        const url = "http://127.0.0.1:8545";
+        takoKeysV1.provider = new ethers.JsonRpcProvider(url);
+        info().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {
         console.log(`error:${error}`);
     }
 })()
+async function getTakoKeyInfo() {
+    const res = await utils.getTakoKeyContract(Network.LOCALHOST);
+    console.log(res);
 
+}
 async function getPrivateKey() {
     const fileName = 'privatekey';
     let base = __dirname;

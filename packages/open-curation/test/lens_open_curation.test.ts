@@ -1,10 +1,16 @@
 import { CONSTANT, TakoOpenCuration } from '../src';
+const tako = new TakoOpenCuration(CONSTANT.Network.TESTNET);
+const ecosystem = tako.lensOpenCuration;
+const url = "https://rpc.ankr.com/polygon_mumbai";
+const web3Provider = new ethers.providers.JsonRpcProvider(url);
+ecosystem.provider = web3Provider;
+
+
 //import { CONSTANT, TakoOpenCuration } from '../build/src';
 
 import * as fs from 'fs';
 import * as path from 'path';
-const tako = new TakoOpenCuration(CONSTANT.Network.TESTNET);
-const ecosystem = tako.lensOpenCuration;
+
 let privateKey = "";
 const address = "0xC439530f6A0582Bc09da70A3e52Ace7dF4b58A32";
 const profileId = "0x01BD";
@@ -12,9 +18,7 @@ const pubIdWithMedia = "0x01bd-0x01-DA-84dddefe";
 const postUriWithOutMedia = "ar://jZrE6RAeDhEhPDfZgSRvqFKOA9EYQzpxdFHLdDB4510";
 const quotePostUriWithMedia = "ar://sE7gPSfgFFhStdyIMEg8KgYFWZj6dJqKRlKdyjtBdg0";
 import * as ethers from 'ethers';
-const url = "https://rpc.ankr.com/polygon_mumbai";
-const web3Provider = new ethers.providers.JsonRpcProvider(url);
-ecosystem.provider = web3Provider;
+
 //1 0x01bd-0x01-DA-078b9925
 //2 0x01bd-0x01-DA-606ded9f
 (async () => {
@@ -71,8 +75,8 @@ async function registerQuotePost() {
 }
 
 async function createBidBatchTest() {
-    const amounts = [BigInt(110)];//0.04matic
-    const contentIds = ["0x01bd-0x01-DA-84dddefe"];//, "0x01bd-0x01-DA-da16dd1b"
+    const amounts = [BigInt(110)];
+    const contentIds = ["0x01bd-0x01-DA-84dddefe"];
     await createBidBatch(amounts, contentIds);
 }
 async function createBidBatch(amounts: bigint[], contentIds: string[]) {
@@ -83,8 +87,6 @@ async function createBidBatch(amounts: bigint[], contentIds: string[]) {
         totalAmount += amount;
         bidTokens.push("0x0000000000000000000000000000000000000000");
     })
-
-    //const bidTokens = ["0x0000000000000000000000000000000000000000", "0x0000000000000000000000000000000000000000"];
     const abiData = await ecosystem.generateBidBatchAbiData(contentIds, bidTokens, amounts);
     const estimatedGas = await ecosystem.estimateGas(address, takoHubInfo.contract, abiData, totalAmount);
     const transaction = await ecosystem.generateTransaction(address, abiData, totalAmount, estimatedGas * BigInt(3));
@@ -123,8 +125,4 @@ async function curatorStatus() {
     const profileId = 445;
     const res = await ecosystem.curatorStatus(index, profileId);
     console.log(`${JSON.stringify(res)}`);
-}
-async function loanWithRelayer() {
-    const abiData = await ecosystem.generateLoanWithRelayer();
-    console.log(`${abiData}`);
 }

@@ -1,10 +1,10 @@
-import { TakoKeysV1 } from '../src';
-import { utils } from '../src';
+import { TakoKeysV1, utils, Network } from '../src';
+
 //import { TakoFarcaster } from '../build/src';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as ethers from 'ethers';
-import { Network } from '../src';
+
 let privateKey = "";
 let takoKeysV1: TakoKeysV1;
 
@@ -19,11 +19,14 @@ const addr2 = "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC";
         //tako.setProxy("http://127.0.0.1:19180");
         privateKey = await getPrivateKey();
         //const takoKeyContract = await utils.getTakoKeyContract(Network.LOCALHOST);
-        //takoKeysV1 = new TakoKeysV1(takoKeyContract.contract, takoKeyContract.chain_id);
+        //takoKeysV1 = new TakoKeysV1();
         takoKeysV1 = new TakoKeysV1("0x5FbDB2315678afecb367f032d93F642f64180aa3", 31337);
+        //takoKeysV1 = new TakoKeysV1(takoKeyContract.contract, takoKeyContract.chain_id);
         const url = "http://127.0.0.1:8545";
+        //sconst url = "https://optimism.publicnode.com";
+
         takoKeysV1.provider = new ethers.JsonRpcProvider(url);
-        info().catch(error => {
+        createShares().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {
@@ -42,6 +45,8 @@ async function getPrivateKey() {
         base = path.dirname(base);
     }
     const prikey = await fs.readFileSync(path.join(base, fileName)).toString();
+    const wallet = new ethers.Wallet(prikey);
+    console.log(`test key addr:${wallet.address}`);
     return prikey;
 }
 async function sendTx(abiData: string, wallet: ethers.Wallet, amount: bigint) {
@@ -64,24 +69,26 @@ async function farcasterKey() {
     const res = await takoKeysV1.farcasterKey();
     console.log(res);
 }
-async function sharesMoneySupply() {
+async function sharesSupply() {
     const sharesSupply = await takoKeysV1.sharesSupply(1);
-    const moneySupply = await takoKeysV1.moneySupply(1);
-    const moneySupplyInEther = ethers.formatEther(moneySupply);
-    console.log(`sharesSupply:${sharesSupply},moneySupply:${moneySupplyInEther} ether`);
+    console.log(`sharesSupply:${sharesSupply}`);
 }
 async function createShares() {
-    const wallet = new ethers.Wallet(hardhatKey1);
-    const totalAmount = ethers.parseEther("0.1");//0.1eth
-    const abiData = takoKeysV1.createSharesAbiData(1, 5, totalAmount);
+    const wallet = new ethers.Wallet(privateKey);
+    const abiData = takoKeysV1.createSharesForPiecewiseAbiData(196784, 1, 5, 20, 1, 1, 1);
     await sendTx(abiData, wallet, BigInt(0));
 }
-async function buySharesByAMM() {
+async function createSharesWithInitialBuy() {
+    const wallet = new ethers.Wallet(hardhatKey0);
+    const abiData = takoKeysV1.createSharesWithInitialBuyAbiData(196784, 1, 3, 5, 1, 1, 1, 1);
+    await sendTx(abiData, wallet, BigInt(0));
+}
+async function buyShares() {
     const wallet = new ethers.Wallet(hardhatKey2);
     const amount = 1;
     const creatorId = 1;
     const totalAmount = await takoKeysV1.getBuyPriceAfterFee(creatorId, amount);
-    const abiData = takoKeysV1.buySharesByAMMAbiData(creatorId, amount);
+    const abiData = takoKeysV1.buySharesAbiData(creatorId, amount);
     await sendTx(abiData, wallet, totalAmount);
 }
 async function sellSharesByAMM() {
@@ -89,7 +96,7 @@ async function sellSharesByAMM() {
     const amount = 1;
     const creatorId = 1;
     const priceLimit = await takoKeysV1.getSellPriceAfterFee(creatorId, amount);
-    const abiData = takoKeysV1.sellSharesByAMMAbiData([0], priceLimit);
+    const abiData = takoKeysV1.sellSharesAbiData([0], priceLimit);
     await sendTx(abiData, wallet, BigInt(0));
 }
 async function getBuyPrice() {
@@ -111,4 +118,14 @@ async function claim() {
     const wallet = new ethers.Wallet(hardhatKey1);
     const abiData = await takoKeysV1.claimAbiData();
     await sendTx(abiData, wallet, BigInt(0));
+}
+async function isOpenInit() {
+    const res = await takoKeysV1.isOpenInit();
+    console.log(`isOpenInit:${res}`);
+}
+function decodeCreateShares() {
+    const funcName = "createShares";
+    const data = "0xb72acfc500000000000000000000000000000000000000000000000000000000000300b0000000000000000000000000000000000000000000000000000000000000000500000000000000000000000000000000000000000000000000005af3107a4000"
+    const decodedData = takoKeysV1.contractInfo.iface.decodeFunctionData(funcName, data);
+    console.log(decodedData)
 }

@@ -22,7 +22,7 @@ async function postRequest(url: string, token: string, reqBody: object) {
 }
 async function get(url: string) {
     const res = await axios.get(url);
-    console.log(res.status);
+    //console.log(res.status);
     return dealWithResponse(res);
     //return await httpRequest(url, {});
 }

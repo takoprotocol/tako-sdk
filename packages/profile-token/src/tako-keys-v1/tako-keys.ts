@@ -6,7 +6,7 @@ class TakoKeysV1 extends BaseContract {
         if (contractAddress && chainId) {
             super(contractAddress, chainId, takoKeysV1abi);
         } else {
-            super("0x5FbDB2315678afecb367f032d93F642f64180aa3", 31337, takoKeysV1abi);
+            super("0xdBD62fdd13719417189DA2C7E2f8064dCDC0Ac20", 10, takoKeysV1abi);
         }
     }
     public async creatorBuyFeePercent(): Promise<bigint> {
@@ -41,10 +41,6 @@ class TakoKeysV1 extends BaseContract {
         const res = await this._contractInfo.contract.sharesSupply(creatorId);
         return res;
     }
-    public async moneySupply(creatorId: number): Promise<bigint> {
-        const res = await this._contractInfo.contract.moneySupply(creatorId);
-        return res;
-    }
     public async userClaimable(address: string): Promise<bigint> {
         const res = await this._contractInfo.contract.userClaimable(address);
         return res;
@@ -66,21 +62,26 @@ class TakoKeysV1 extends BaseContract {
         const res = await this._contractInfo.contract.getSellPriceAfterFee(creatorId, amount);
         return res;
     }
-
-    public createSharesAbiData(creatorId: number, supplyAmount: number, totalPrice: bigint): string {
-        return this._contractInfo.iface.encodeFunctionData("createShares",
-            [creatorId, supplyAmount, totalPrice]);
-    }
-    public buySharesByAMMAbiData(creatorId: number, supplyAmount: number): string {
-        return this._contractInfo.iface.encodeFunctionData("buySharesByAMM",
+    public buySharesAbiData(creatorId: number, supplyAmount: number): string {
+        return this._contractInfo.iface.encodeFunctionData("buyShares",
             [creatorId, supplyAmount]);
     }
-    public sellSharesByAMMAbiData(tokenIds: number[], priceLimit: bigint): string {
-        return this._contractInfo.iface.encodeFunctionData("sellSharesByAMM",
+    public sellSharesAbiData(tokenIds: number[], priceLimit: bigint): string {
+        return this._contractInfo.iface.encodeFunctionData("sellShares",
             [tokenIds, priceLimit]);
     }
     public claimAbiData(): string {
         return this._contractInfo.iface.encodeFunctionData("claim");
+    }
+    public createSharesForPiecewiseAbiData(creatorId: number, startPrice: number, initialSupply: number, totalSupply: number, a: number, b: number, k: number): string {
+        //uint256 creatorId, uint256 startPrice, uint256 initialSupply, uint256 totalSupply, uint256 a, uint256 b, uint256 k
+        return this._contractInfo.iface.encodeFunctionData("createSharesForPiecewise",
+            [creatorId, startPrice, initialSupply, totalSupply, a, b, k]);
+    }
+    public createSharesWithInitialBuyAbiData(creatorId: number, startPrice: number, initialSupply: number, totalSupply: number, a: number, b: number, k: number, shareNumber: number): string {
+        //uint256 creatorId, uint256 startPrice, uint256 initialSupply, uint256 totalSupply, uint256 a, uint256 b, uint256 k
+        return this._contractInfo.iface.encodeFunctionData("createSharesWithInitialBuy",
+            [creatorId, startPrice, initialSupply, totalSupply, a, b, k, shareNumber]);
     }
 }
 export { TakoKeysV1 }

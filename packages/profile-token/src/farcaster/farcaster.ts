@@ -8,7 +8,7 @@ class FarcasterKey extends ERC721 {
         if (contractAddress && chainId) {
             super(contractAddress, chainId);
         } else {
-            super("0x5FbDB2315678afecb367f032d93F642f64180aa3", 31337);
+            super("0x106484C61F2893C134E8E801C468E5A448ed150f", 10);
         }
         this.initAbiFile(farcasterKeyabi);
     }

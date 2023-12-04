@@ -1,4 +1,4 @@
-import { FarcasterKey } from '../src';
+import { FarcasterKey, TakoKeysV1, utils, Network } from '../src';
 //import { TakoFarcaster } from '../build/src';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -16,8 +16,13 @@ const addr2 = "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC";
     try {
         //tako.setProxy("http://127.0.0.1:19180");
         privateKey = await getPrivateKey();
-        farcasterKey = new FarcasterKey("0x5FbDB2315678afecb367f032d93F642f64180aa3", 31337);
-        const url = "http://127.0.0.1:8545";
+        const takoKeyContract = await utils.getTakoKeyContract(Network.LOCALHOST);
+        const takoKeysV1 = new TakoKeysV1(takoKeyContract.contract, takoKeyContract.chain_id);
+        const url = "https://optimism.publicnode.com";
+        takoKeysV1.provider = new ethers.JsonRpcProvider(url);
+        const farcasterKeyAddr = await takoKeysV1.farcasterKey();
+        farcasterKey = new FarcasterKey(farcasterKeyAddr, takoKeyContract.chain_id);
+        //const url = "http://127.0.0.1:8545";
         farcasterKey.provider = new ethers.JsonRpcProvider(url);
         info().catch(error => {
             console.log(`error:${error}`);

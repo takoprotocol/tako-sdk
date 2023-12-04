@@ -31,11 +31,8 @@ class BaseContract {
     public get chainId(): number {
         return this._contractInfo.chainId;
     }
-    public get iface(): ethers.Interface {
-        if (this._contractInfo.iface) {
-            return this._contractInfo.iface;
-        }
-        throw "no ethers interface";
+    public get contractInfo(): ContractInfo {
+        return this._contractInfo;
     }
     //private
     private updateContract() {

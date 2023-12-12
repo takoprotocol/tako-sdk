@@ -251,6 +251,19 @@ const takoKeysV1abi = `
 	},
 	{
 		"inputs": [],
+		"name": "DECIMAL",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "MAX_FEE_PERCENT",
 		"outputs": [
 			{
@@ -271,7 +284,7 @@ const takoKeysV1abi = `
 			},
 			{
 				"internalType": "uint256",
-				"name": "amount",
+				"name": "sharesAmount",
 				"type": "uint256"
 			}
 		],
@@ -369,7 +382,7 @@ const takoKeysV1abi = `
 			},
 			{
 				"internalType": "uint256",
-				"name": "shareNumber",
+				"name": "sharesAmount",
 				"type": "uint256"
 			}
 		],

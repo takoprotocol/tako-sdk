@@ -23,10 +23,10 @@ const addr2 = "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC";
         takoKeysV1 = new TakoKeysV1("0x5FbDB2315678afecb367f032d93F642f64180aa3", 31337);
         //takoKeysV1 = new TakoKeysV1(takoKeyContract.contract, takoKeyContract.chain_id);
         const url = "http://127.0.0.1:8545";
-        //sconst url = "https://optimism.publicnode.com";
+        //const url = "https://optimism.publicnode.com";
 
         takoKeysV1.provider = new ethers.JsonRpcProvider(url);
-        createShares().catch(error => {
+        poolInfo().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {
@@ -45,8 +45,10 @@ async function getPrivateKey() {
         base = path.dirname(base);
     }
     const prikey = await fs.readFileSync(path.join(base, fileName)).toString();
-    const wallet = new ethers.Wallet(prikey);
-    console.log(`test key addr:${wallet.address}`);
+    if (prikey != "") {
+        const wallet = new ethers.Wallet(prikey);
+        console.log(`test key addr:${wallet.address}`);
+    }
     return prikey;
 }
 async function sendTx(abiData: string, wallet: ethers.Wallet, amount: bigint) {
@@ -65,6 +67,10 @@ async function info() {
     console.log(`creatorBuyFeePercent:${creatorBuyFeePercent},creatorSellFeePercent:${creatorSellFeePercent},
     protocolBuyFeePercent:${protocolBuyFeePercent},protocolSellFeePercent:${protocolSellFeePercent}`);
 }
+async function poolInfo() {
+    const res = await takoKeysV1.poolInfo(196785);
+    console.log(res);
+}
 async function farcasterKey() {
     const res = await takoKeysV1.farcasterKey();
     console.log(res);
@@ -74,13 +80,13 @@ async function sharesSupply() {
     console.log(`sharesSupply:${sharesSupply}`);
 }
 async function createShares() {
-    const wallet = new ethers.Wallet(privateKey);
-    const abiData = takoKeysV1.createSharesForPiecewiseAbiData(196784, 1, 5, 20, 1, 1, 1);
+    const wallet = new ethers.Wallet(hardhatKey0);
+    const abiData = takoKeysV1.createSharesForPiecewiseAbiData(196785, 1, 5, 20, 1, 2, 3);
     await sendTx(abiData, wallet, BigInt(0));
 }
 async function createSharesWithInitialBuy() {
     const wallet = new ethers.Wallet(hardhatKey0);
-    const abiData = takoKeysV1.createSharesWithInitialBuyAbiData(196784, 1, 3, 5, 1, 1, 1, 1);
+    const abiData = takoKeysV1.createSharesWithInitialBuyAbiData(196784, 1, 5, 20, 1, 1, 1, 1);
     await sendTx(abiData, wallet, BigInt(0));
 }
 async function buyShares() {

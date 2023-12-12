@@ -6,7 +6,7 @@ class TakoKeysV1 extends BaseContract {
         if (contractAddress && chainId) {
             super(contractAddress, chainId, takoKeysV1abi);
         } else {
-            super("0xdBD62fdd13719417189DA2C7E2f8064dCDC0Ac20", 10, takoKeysV1abi);
+            super("0x09a8E3B3bA98B9B7DBd9a82251157B0C27540321", 10, takoKeysV1abi);
         }
     }
     public async creatorBuyFeePercent(): Promise<bigint> {
@@ -32,6 +32,14 @@ class TakoKeysV1 extends BaseContract {
     public async farcasterHub(): Promise<string> {
         const res = await this._contractInfo.contract.farcasterHub();
         return res;
+    }
+    public async poolInfo(creatorId: number): Promise<PoolInfo> {
+        const res = await this._contractInfo.contract.poolInfo(creatorId);
+        const info: PoolInfo = {
+            idoPrice: res[0], idoAmount: res[1], sharesAmount: res[2],
+            a: res[3], b: res[4], k: res[5], isCreated: res[6]
+        }
+        return info;
     }
     public async isOpenInit(): Promise<boolean> {
         const res = await this._contractInfo.contract.isOpenInit();
@@ -84,4 +92,14 @@ class TakoKeysV1 extends BaseContract {
             [creatorId, startPrice, initialSupply, totalSupply, a, b, k, shareNumber]);
     }
 }
-export { TakoKeysV1 }
+
+interface PoolInfo {
+    idoPrice: bigint,
+    idoAmount: bigint,
+    sharesAmount: bigint,
+    a: bigint,
+    b: bigint,
+    k: bigint,
+    isCreated: boolean
+}
+export { TakoKeysV1, PoolInfo }

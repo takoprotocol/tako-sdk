@@ -4,12 +4,8 @@ import { farcasterKeyabi } from '../assets';
 
 class FarcasterKey extends ERC721 {
 
-    constructor(contractAddress?: string, chainId?: number) {
-        if (contractAddress && chainId) {
-            super(contractAddress, chainId);
-        } else {
-            super("0x106484C61F2893C134E8E801C468E5A448ed150f", 10);
-        }
+    constructor(contractAddress: string, chainId: number) {
+        super(contractAddress, chainId);
         this.initAbiFile(farcasterKeyabi);
     }
 

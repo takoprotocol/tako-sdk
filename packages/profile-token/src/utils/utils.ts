@@ -29,7 +29,7 @@ async function get(url: string) {
 async function getTakoKeyContract(network: Network): Promise<TakoHubInfo> {
     const url = `${getTakoV2Url(network)}takohub_info`;
     const res = await get(url);
-    const takoKeysInfo: TakoHubInfo = res.tako_keys;
+    const takoKeysInfo: TakoHubInfo = res.farcaster_profile_token;
 
     return takoKeysInfo;
 }

@@ -2,12 +2,8 @@ import { BaseContract } from '../libs';
 import { takoKeysV1abi } from '../assets';
 
 class TakoKeysV1 extends BaseContract {
-    constructor(contractAddress?: string, chainId?: number) {
-        if (contractAddress && chainId) {
-            super(contractAddress, chainId, takoKeysV1abi);
-        } else {
-            super("0x09a8E3B3bA98B9B7DBd9a82251157B0C27540321", 10, takoKeysV1abi);
-        }
+    constructor(contractAddress: string, chainId: number) {
+        super(contractAddress, chainId, takoKeysV1abi);
     }
     public async creatorBuyFeePercent(): Promise<bigint> {
         const res = await this._contractInfo.contract.creatorBuyFeePercent();

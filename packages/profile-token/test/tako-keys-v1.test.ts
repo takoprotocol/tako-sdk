@@ -18,10 +18,10 @@ const addr2 = "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC";
     try {
         //tako.setProxy("http://127.0.0.1:19180");
         privateKey = await getPrivateKey();
-        const takoKeyContract = await utils.getTakoKeyContract(Network.TESTNET);
+        //const takoKeyContract = await utils.getTakoKeyContract(Network.TESTNET);
         //takoKeysV1 = new TakoKeysV1();
         // = new TakoKeysV1("0x5FbDB2315678afecb367f032d93F642f64180aa3", 31337);
-        takoKeysV1 = new TakoKeysV1(takoKeyContract.contract, takoKeyContract.chain_id);
+        takoKeysV1 = new TakoKeysV1("0xFc014AECdE06182A4ff3B888e378d0C8F945619b", 10);
         //const url = "http://127.0.0.1:8545";
         const url = "https://optimism.publicnode.com";
 
@@ -68,7 +68,7 @@ async function info() {
     protocolBuyFeePercent:${protocolBuyFeePercent},protocolSellFeePercent:${protocolSellFeePercent}`);
 }
 async function poolInfo() {
-    const res = await takoKeysV1.poolInfo(196785);
+    const res = await takoKeysV1.poolInfo(11588);
     console.log(res);
 }
 async function farcasterKey() {
@@ -81,13 +81,15 @@ async function sharesSupply() {
 }
 async function createShares() {
     const wallet = new ethers.Wallet(hardhatKey0);
-    const abiData = takoKeysV1.createSharesForPiecewiseAbiData(196785, 1, 5, 20, 1, 2, 3);
-    await sendTx(abiData, wallet, BigInt(0));
+    const abiData = takoKeysV1.createSharesForPiecewiseAbiData(196785, 1, 5, 20, 1, 2, true, 3, true);
+    console.log()
+    //await sendTx(abiData, wallet, BigInt(0));
 }
 async function createSharesWithInitialBuy() {
     const wallet = new ethers.Wallet(hardhatKey0);
-    const abiData = takoKeysV1.createSharesWithInitialBuyAbiData(196784, 1, 5, 20, 1, 1, 1, 1);
-    await sendTx(abiData, wallet, BigInt(0));
+    const abiData = takoKeysV1.createSharesWithInitialBuyAbiData(196784, 1, 5, 20, 1, 1, true, 1, true, 1);
+    console.log()
+    //await sendTx(abiData, wallet, BigInt(0));
 }
 async function buyShares() {
     const wallet = new ethers.Wallet(hardhatKey2);
@@ -97,7 +99,7 @@ async function buyShares() {
     const abiData = takoKeysV1.buySharesAbiData(creatorId, amount);
     await sendTx(abiData, wallet, totalAmount);
 }
-async function sellSharesByAMM() {
+async function sellShares() {
     const wallet = new ethers.Wallet(hardhatKey2);
     const amount = 1;
     const creatorId = 1;

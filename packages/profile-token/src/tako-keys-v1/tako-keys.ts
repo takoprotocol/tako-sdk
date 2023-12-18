@@ -33,7 +33,7 @@ class TakoKeysV1 extends BaseContract {
         const res = await this._contractInfo.contract.poolInfo(creatorId);
         const info: PoolInfo = {
             idoPrice: res[0], idoAmount: res[1], sharesAmount: res[2],
-            a: res[3], b: res[4], k: res[5], isCreated: res[6]
+            a: res[3], b: res[4], signOfb: res[5], k: res[6], signOfk: res[7], isCreated: res[8]
         }
         return info;
     }
@@ -77,15 +77,15 @@ class TakoKeysV1 extends BaseContract {
     public claimAbiData(): string {
         return this._contractInfo.iface.encodeFunctionData("claim");
     }
-    public createSharesForPiecewiseAbiData(creatorId: number, startPrice: number, initialSupply: number, totalSupply: number, a: number, b: number, k: number): string {
+    public createSharesForPiecewiseAbiData(creatorId: number, startPrice: number, initialSupply: number, totalSupply: number, a: number, b: number, signOfb: boolean, k: number, signOfk: boolean): string {
         //uint256 creatorId, uint256 startPrice, uint256 initialSupply, uint256 totalSupply, uint256 a, uint256 b, uint256 k
         return this._contractInfo.iface.encodeFunctionData("createSharesForPiecewise",
-            [creatorId, startPrice, initialSupply, totalSupply, a, b, k]);
+            [creatorId, startPrice, initialSupply, totalSupply, a, b, signOfb, k, signOfk]);
     }
-    public createSharesWithInitialBuyAbiData(creatorId: number, startPrice: number, initialSupply: number, totalSupply: number, a: number, b: number, k: number, shareNumber: number): string {
+    public createSharesWithInitialBuyAbiData(creatorId: number, startPrice: number, initialSupply: number, totalSupply: number, a: number, b: number, signOfb: boolean, k: number, signOfk: boolean, shareNumber: number): string {
         //uint256 creatorId, uint256 startPrice, uint256 initialSupply, uint256 totalSupply, uint256 a, uint256 b, uint256 k
         return this._contractInfo.iface.encodeFunctionData("createSharesWithInitialBuy",
-            [creatorId, startPrice, initialSupply, totalSupply, a, b, k, shareNumber]);
+            [creatorId, startPrice, initialSupply, totalSupply, a, b, signOfb, k, signOfk, shareNumber]);
     }
 }
 
@@ -95,7 +95,9 @@ interface PoolInfo {
     sharesAmount: bigint,
     a: bigint,
     b: bigint,
+    signOfb: boolean,
     k: bigint,
+    signOfk: boolean,
     isCreated: boolean
 }
 export { TakoKeysV1, PoolInfo }

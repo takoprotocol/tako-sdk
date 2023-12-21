@@ -1,5 +1,5 @@
 # tako-profile-token
-[![npm version](https://img.shields.io/badge/npm-1.0.3-brightgreen.svg)](https://www.npmjs.com/package/tako-profile-token)
+[![npm version](https://img.shields.io/badge/npm-1.0.4-brightgreen.svg)](https://www.npmjs.com/package/tako-profile-token)
 
 Tako profile token, Interact with Tako Profile Token Contract on Optimistic for Farcaster dApp integration.
 

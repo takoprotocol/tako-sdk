@@ -16,15 +16,15 @@ const addr2 = "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC";
     try {
         //tako.setProxy("http://127.0.0.1:19180");
         privateKey = await getPrivateKey();
-        const takoKeyContract = await utils.getTakoKeyContract(Network.LOCALHOST);
-        const takoKeysV1 = new TakoKeysV1(takoKeyContract.contract, takoKeyContract.chain_id);
+        // const takoKeyContract = await utils.getTakoKeyContract(Network.LOCALHOST);
+        // const takoKeysV1 = new TakoKeysV1(takoKeyContract.contract, takoKeyContract.chain_id);
         const url = "https://optimism.publicnode.com";
-        takoKeysV1.provider = new ethers.JsonRpcProvider(url);
-        const farcasterKeyAddr = await takoKeysV1.farcasterKey();
-        farcasterKey = new FarcasterKey(farcasterKeyAddr, takoKeyContract.chain_id);
+        // takoKeysV1.provider = new ethers.JsonRpcProvider(url);
+        //const farcasterKeyAddr = await takoKeysV1.farcasterKey();
+        farcasterKey = new FarcasterKey("0x9c0E6E3599E139C74982f5F7DC928Ea756f5244C", 10);
         //const url = "http://127.0.0.1:8545";
         farcasterKey.provider = new ethers.JsonRpcProvider(url);
-        info().catch(error => {
+        creatorIdsOfOwner().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {
@@ -46,7 +46,7 @@ async function ownerOf() {
     console.log(owner);
 }
 async function balanceOf() {
-    const balance = await farcasterKey.balanceOf(addr0);
+    const balance = await farcasterKey.balanceOf("0xa75648322b4a6B6d55159f3cBB8a204faA9f53CD");
     console.log(balance);
 }
 async function getApproved() {
@@ -93,7 +93,7 @@ async function creatorIdsOf() {
     console.log(res);
 }
 async function creatorIdsOfOwner() {
-    const res = await farcasterKey.creatorIdsOfOwner(addr0);
+    const res = await farcasterKey.creatorIdsOfOwner("0xa75648322b4a6B6d55159f3cBB8a204faA9f53CD");
     console.log(res);
 }
 async function explicitOwnershipOf() {

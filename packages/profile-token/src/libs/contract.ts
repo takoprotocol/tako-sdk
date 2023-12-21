@@ -102,7 +102,17 @@ class BaseContract {
         };
         return transaction;
     }
-
+    public decodeAbiData(abiData: string): DecodedData {
+        const functionCode = abiData.substring(0, 10);
+        const name = this._contractInfo.iface.getFunctionName(functionCode);
+        const decodedData = this._contractInfo.iface.decodeFunctionData(functionCode, abiData);
+        const res: DecodedData = { functionName: name, decodedData: decodedData }
+        return res;
+    }
+}
+interface DecodedData {
+    functionName: string,
+    decodedData: ethers.ethers.Result,
 }
 interface ContractInfo {
     address: string,

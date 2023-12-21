@@ -48,7 +48,7 @@ async function getPrivateKey() {
     return prikey;
 }
 async function allBids() {
-    const a = await ecosystem.allBids.DESC.status(CONSTANT.OpenCurationAllBidsStatus.All).ids([445]);
+    const a = ecosystem.allBids.DESC.status(CONSTANT.OpenCurationAllBidsStatus.All).ids([445]);
     const res = await a.get();
     console.log(JSON.stringify(res));
 }

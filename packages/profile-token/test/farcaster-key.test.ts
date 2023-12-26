@@ -24,7 +24,7 @@ const addr2 = "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC";
         farcasterKey = new FarcasterKey("0x9c0E6E3599E139C74982f5F7DC928Ea756f5244C", 10);
         //const url = "http://127.0.0.1:8545";
         farcasterKey.provider = new ethers.JsonRpcProvider(url);
-        creatorIdsOfOwner().catch(error => {
+        approve().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {
@@ -61,7 +61,8 @@ async function isApprovedForAll() {
 async function approve() {
     const wallet = new ethers.Wallet(hardhatKey1);
     const abiData = farcasterKey.approveAbiData(addr2, 0);
-    await sendTx(abiData, wallet);
+    console.log(abiData)
+    //await sendTx(abiData, wallet);
 }
 async function safeTransferFrom() {
     const wallet = new ethers.Wallet(hardhatKey1);

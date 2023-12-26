@@ -1,0 +1,21 @@
+{
+  "name": "tako-post-token",
+  "version": "1.0.0",
+  "main": "build/src/index.js",
+  "license": "MIT",
+  "types": "build/src/index.d.ts",
+  "scripts": {
+    "build": "yarn run move && yarn run rm && yarn run build-tsc",
+    "rm": "rmdir /s /q .\\build",
+    "move": "xcopy ..\\test\\ .\\src\\test\\ /Y",
+    "build-tsc": "..\\..\\node_modules\\.bin\\tsc",
+    "test": "..\\..\\node_modules\\.bin\\nodemon .\\test\\post-token.test.ts"
+  },
+  "dependencies": {
+    "module-alias": "^2.2.3"
+  },
+  "_moduleAliases": {
+    "@test": "./build/test",
+    "@data": "./build/data"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "tako-content-profile",
+  "version": "1.0.0",
+  "main": "build/content-profile/src/index.js",
+  "license": "MIT",
+  "types": "build/content-profile/src/index.d.ts",
+  "scripts": {
+    "build": "yarn run rm && yarn run build-tsc",
+    "rm": "rmdir /s /q .\\build",
+    "build-tsc": "..\\..\\node_modules\\.bin\\tsc"
+  },
+  "dependencies": {
+    "ethers": "^6.9.1",
+    "module-alias": "^2.2.3"
+  },
+  "_moduleAliases": {
+    "@pkg": "./build/pkg"
+  }
+}

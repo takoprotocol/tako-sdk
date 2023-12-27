@@ -20,6 +20,10 @@
             "@test/*": [
                 "post-token/src/test/*",
                 "test/*",
+            ],
+            "@pkg/*": [
+                "post-token/src/pkg/*",
+                "pkg/*",
             ]
         }
     },

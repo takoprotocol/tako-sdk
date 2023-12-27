@@ -1,4 +1,3 @@
-import * as ethers from 'ethers';
 import { ERC721 } from '../libs';
 import { farcasterKeyabi } from '../assets';
 

@@ -16,11 +16,11 @@ let key: ContentProfile;
         //const takoKeyContract = await utils.getTakoKeyContract(Network.TESTNET);
         //takoKeysV1 = new TakoKeysV1();
         // = new TakoKeysV1("0x5FbDB2315678afecb367f032d93F642f64180aa3", 31337);
-        key = new ContentProfile("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0", 31337);
+        key = new ContentProfile("0x5FbDB2315678afecb367f032d93F642f64180aa3", 31337);
         const url = "http://127.0.0.1:8545";
         //const url = "https://optimism.publicnode.com";
         key.provider = new ethers.JsonRpcProvider(url);
-        contentProfileKey().catch(error => {
+        decodeData().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {
@@ -61,7 +61,52 @@ async function contentProfileKey() {
     const res = await key.contentProfileKey();
     console.log(res);
 }
+async function info() {
+    const creatorBuyFeePercent = await key.creatorBuyFeePercent();
+    const protocolBuyFeePercent = await key.protocolBuyFeePercent();
+    console.log(`creatorBuyFeePercent:${creatorBuyFeePercent},
+    protocolBuyFeePercent:${protocolBuyFeePercent}`);
+}
+async function creatorInit() {
+    const res = await key.creatorInit(addr0);
+    console.log(res);
+}
+async function factor() {
+    const res = await key.factor();
+    console.log(res);
+}
+async function getBuyPrice() {
+    const buyPrice = await key.getBuyPrice(1);
+    const buyPriceAfterFee = await key.getBuyPriceAfterFee(1);
+    console.log(`buyPrice:${buyPrice},buyPriceAfterFee:${buyPriceAfterFee}`);
+}
+async function getCurrentTokenId() {
+    const res = await key.getCurrentTokenId();
+    console.log(res);
+}
+async function isOpenInit() {
+    const res = await key.isOpenInit();
+    console.log(`isOpenInit:${res}`);
+}
+async function isPeripheral() {
+    const res = await key.isPeripheral(addr1);
+    console.log(`isPeripheral:${res}`);
+}
+async function userClaimable() {
+    const res = await key.userClaimable(addr1);
+    console.log(`addr:${addr1} claimable:${res}`);
+}
+async function tokenPriceInfo() {
+    const res = await key.tokenPriceInfo(1);
+    console.log(res);
+}
+async function decodeData() {
+    const data = "0xf3cea5490000000000000000000000000000000000000000000000000000000000000001000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+    const res = key.decodeAbiData(data);
+    console.log(res.functionName);
+    console.log(res.decodedData.toObject());
 
+}
 /*
 async function getTakoKeyInfo() {
     const res = await utils.getTakoKeyContract(Network.LOCALHOST);
@@ -82,15 +127,6 @@ async function getPrivateKey() {
     return prikey;
 }
 
-
-async function info() {
-    const creatorBuyFeePercent = await takoKeysV1.creatorBuyFeePercent();
-    const creatorSellFeePercent = await takoKeysV1.creatorSellFeePercent();
-    const protocolBuyFeePercent = await takoKeysV1.protocolBuyFeePercent();
-    const protocolSellFeePercent = await takoKeysV1.protocolSellFeePercent();
-    console.log(`creatorBuyFeePercent:${creatorBuyFeePercent},creatorSellFeePercent:${creatorSellFeePercent},
-    protocolBuyFeePercent:${protocolBuyFeePercent},protocolSellFeePercent:${protocolSellFeePercent}`);
-}
 async function poolInfo() {
     const res = await takoKeysV1.poolInfo(11588);
     console.log(res);
@@ -126,27 +162,13 @@ async function sellShares() {
     const abiData = takoKeysV1.sellSharesAbiData([0], priceLimit);
     await sendTx(abiData, wallet, BigInt(0));
 }
-async function getBuyPrice() {
-    const buyPrice = await takoKeysV1.getBuyPrice(1, 1);
-    const buyPriceAfterFee = await takoKeysV1.getBuyPriceAfterFee(1, 1);
-    console.log(`buyPrice:${buyPrice},buyPriceAfterFee:${buyPriceAfterFee}`);
-}
+
 async function getSellPrice() {
     const sellPrice = await takoKeysV1.getSellPrice(1, 1);
     const sellPriceAfterFee = await takoKeysV1.getSellPriceAfterFee(1, 1);
     console.log(`getSellPrice:${sellPrice},sellPriceAfterFee:${sellPriceAfterFee}`);
 }
-async function userClaimable() {
-    const res = await takoKeysV1.userClaimable(addr1);
-    console.log(`addr:${addr1} claimable:${res}`);
-}
 
-async function isOpenInit() {
-    const res = await takoKeysV1.isOpenInit();
-    console.log(`isOpenInit:${res}`);
-}
-async function decodeData() {
-    const data = "0x8b24fb8900000000000000000000000000000000000000000000000000000000000041f9000000000000000000000000000000000000000000000000000000000098968000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000190000000000000000000000000000000000000000000000000000221b262dd800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000e35fa931a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002"
-    const decodedData = takoKeysV1.decodeAbiData("0x01");
-    console.log(decodedData);
-}*/
+
+
+*/

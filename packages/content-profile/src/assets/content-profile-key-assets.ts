@@ -421,6 +421,24 @@ const contentProfileKeyabi = `
 				"type": "uint256"
 			},
 			{
+				"internalType": "string",
+				"name": "url",
+				"type": "string"
+			}
+		],
+		"name": "setContentUrl",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
 				"internalType": "address",
 				"name": "from",
 				"type": "address"

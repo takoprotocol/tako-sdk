@@ -1,9 +1,83 @@
 const contentProfileAbi = `
 [
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "contentProfileId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "creator",
+				"type": "address"
+			}
+		],
+		"name": "bind",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "sender",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "contentProfileId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "creator",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "claimable",
+				"type": "uint256"
+			}
+		],
+		"name": "BindEvent",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "contentProfileId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "buyer",
+				"type": "address"
+			}
+		],
+		"name": "Buy",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "claim",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -23,6 +97,55 @@ const contentProfileAbi = `
 		],
 		"name": "ClaimEvent",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "creator",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "basePrice",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "priceFactor",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "startPriceIndex",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "contentUrl",
+				"type": "string"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "contentIdHash",
+				"type": "bytes32"
+			}
+		],
+		"name": "create",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -62,10 +185,73 @@ const contentProfileAbi = `
 				"internalType": "bytes32",
 				"name": "contentIdHash",
 				"type": "bytes32"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "contentProfileId",
+				"type": "uint256"
 			}
 		],
 		"name": "CreateEvent",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "basePrice",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "priceFactor",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "startPriceIndex",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "contentIdHash",
+				"type": "bytes32"
+			}
+		],
+		"name": "createwithPeripheralCreator",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "contentProfileId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "desitination",
+				"type": "address"
+			}
+		],
+		"name": "Mint",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -112,6 +298,19 @@ const contentProfileAbi = `
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "addr",
+				"type": "address"
+			}
+		],
+		"name": "removePeripheral",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -123,6 +322,32 @@ const contentProfileAbi = `
 		],
 		"name": "SetCreatorBuyFee",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_feePercent",
+				"type": "uint256"
+			}
+		],
+		"name": "setCreatorBuyFeePercent",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_feeDestination",
+				"type": "address"
+			}
+		],
+		"name": "setFeeDestination",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -138,6 +363,19 @@ const contentProfileAbi = `
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "bool",
+				"name": "isOpen",
+				"type": "bool"
+			}
+		],
+		"name": "setOpenInit",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -149,6 +387,19 @@ const contentProfileAbi = `
 		],
 		"name": "SetOpenInit",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "addr",
+				"type": "address"
+			}
+		],
+		"name": "setPeripheral",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -164,12 +415,38 @@ const contentProfileAbi = `
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_feePercent",
+				"type": "uint256"
+			}
+		],
+		"name": "setProtocolBuyFeePercent",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "tokenIdIncrement",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
 				"indexed": false,
 				"internalType": "address",
 				"name": "trader",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "buyer",
 				"type": "address"
 			},
 			{
@@ -207,6 +484,91 @@ const contentProfileAbi = `
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "contentProfileId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "basePrice",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "priceIndex",
+				"type": "uint256"
+			}
+		],
+		"name": "update",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "contentProfileId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "contentUrl",
+				"type": "string"
+			}
+		],
+		"name": "updateContentInfo",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "trader",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "contentProfileId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "basePrice",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "priceIndex",
+				"type": "uint256"
+			}
+		],
+		"name": "UpdateEvent",
+		"type": "event"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -231,57 +593,6 @@ const contentProfileAbi = `
 		],
 		"name": "WhitelistedAddressRemoved",
 		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "contentProfileId",
-				"type": "uint256"
-			}
-		],
-		"name": "Buy",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "FACTOR",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "contentProfileId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "desitination",
-				"type": "address"
-			}
-		],
-		"name": "Mint",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "claim",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
 	},
 	{
 		"inputs": [
@@ -316,50 +627,6 @@ const contentProfileAbi = `
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "creator",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "basePrice",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "startPriceIndex",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "contentUrl",
-				"type": "string"
-			},
-			{
-				"internalType": "bytes32",
-				"name": "contentIdHash",
-				"type": "bytes32"
-			}
-		],
-		"name": "create",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "creatorBuyFeePercent",
 		"outputs": [
@@ -386,6 +653,19 @@ const contentProfileAbi = `
 				"internalType": "bool",
 				"name": "",
 				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "DECIMAL",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -522,6 +802,25 @@ const contentProfileAbi = `
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "profileClaimbale",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "protocolBuyFeePercent",
 		"outputs": [
@@ -545,91 +844,6 @@ const contentProfileAbi = `
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "addr",
-				"type": "address"
-			}
-		],
-		"name": "removePeripheral",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_feePercent",
-				"type": "uint256"
-			}
-		],
-		"name": "setCreatorBuyFeePercent",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_feeDestination",
-				"type": "address"
-			}
-		],
-		"name": "setFeeDestination",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bool",
-				"name": "isOpen",
-				"type": "bool"
-			}
-		],
-		"name": "setOpenInit",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "addr",
-				"type": "address"
-			}
-		],
-		"name": "setPeripheral",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_feePercent",
-				"type": "uint256"
-			}
-		],
-		"name": "setProtocolBuyFeePercent",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "tokenIdIncrement",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -659,24 +873,16 @@ const contentProfileAbi = `
 			},
 			{
 				"internalType": "uint256",
+				"name": "priceFactor",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
 				"name": "currentPriceIndex",
 				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

@@ -52,6 +52,10 @@ class ContentProfile extends BaseContract {
         const res = await this._contractInfo.contract.userClaimable(address);
         return res;
     }
+    public async profileClaimable(contentProfileId: number): Promise<bigint> {
+        const res = await this._contractInfo.contract.profileClaimbale(contentProfileId);
+        return res;
+    }
     public async tokenPriceInfo(contentProfileId: number): Promise<AssetInfo> {
         const res = await this._contractInfo.contract.tokenPriceInfo(contentProfileId);
         const info: AssetInfo = {
@@ -62,20 +66,19 @@ class ContentProfile extends BaseContract {
     }
 
     //
-    public buyAbiData(contentProfileId: number): string {
-        return this._contractInfo.iface.encodeFunctionData("Buy", [contentProfileId]);
+    public buyAbiData(contentProfileId: number, creator: string): string {
+        return this._contractInfo.iface.encodeFunctionData("Buy", [contentProfileId, creator]);
     }
     public claimAbiData(): string {
         return this._contractInfo.iface.encodeFunctionData("claim");
     }
-    public createAbiData(creator: string, owner: string, basePrice: number,
-        startPriceIndex: number, contentUrl: string, contentIdHash: string): string {
-        return this._contractInfo.iface.encodeFunctionData("create",
-            [creator, owner, basePrice, startPriceIndex, contentUrl, contentIdHash]);
-    }
     public mintAbiData(contentProfileId: number, desitination: string): string {
         return this._contractInfo.iface.encodeFunctionData("Mint",
             [contentProfileId, desitination]);
+    }
+    public updateAbiData(contentProfileId: number, basePrice: bigint, priceIndex: number): string {
+        return this._contractInfo.iface.encodeFunctionData("update",
+            [contentProfileId, basePrice, priceIndex]);
     }
 }
 

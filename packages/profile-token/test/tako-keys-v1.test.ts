@@ -26,7 +26,7 @@ const addr2 = "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC";
         const url = "https://optimism.publicnode.com";
 
         takoKeysV1.provider = new ethers.JsonRpcProvider(url);
-        decodeData().catch(error => {
+        createShares().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {
@@ -82,7 +82,7 @@ async function sharesSupply() {
 async function createShares() {
     const wallet = new ethers.Wallet(hardhatKey0);
     const abiData = takoKeysV1.createSharesForPiecewiseAbiData(196785, 1, 5, 20, 1, 2, true, 3, true);
-    console.log()
+    console.log(abiData)
     //await sendTx(abiData, wallet, BigInt(0));
 }
 async function createSharesWithInitialBuy() {

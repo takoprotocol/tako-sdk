@@ -50,7 +50,8 @@ async function approve() {
 async function safeTransferFrom() {
     const wallet = new ethers.Wallet(hardhatKey1);
     const abiData = key.safeTransferFromAbiData(addr1, addr0, 1, new Uint8Array());
-    await sendTx(abiData, wallet);
+    console.log(abiData)
+    //await sendTx(abiData, wallet);
 }
 async function setApprovalForAll() {
     const wallet = new ethers.Wallet(hardhatKey0);
@@ -67,6 +68,10 @@ async function contentIdHash() {
 }
 async function contentUrl() {
     const res = await key.contentUrl(1);
+    console.log(res);
+}
+async function tokenUri() {
+    const res = await key.tokenURI(1);
     console.log(res);
 }
 async function coreContract() {

@@ -1,4 +1,5 @@
 import { NewPostToken, Network, PostToken, Ecosystem } from '../src';
+//import { NewPostToken, Network, PostToken, Ecosystem } from '../build/post-token/src';
 import {
     getPrivateKey, hardhatKey0, hardhatKey1,
     hardhatKey2, addr0, addr1, addr2, sendTx
@@ -9,7 +10,7 @@ let postToken: PostToken;
 (async () => {
     try {
         postToken = await NewPostToken(Network.TESTNET);
-        postsInfo().catch(error => {
+        verifyFarcasterFid().catch(error => {
             console.log(`error:${error}`);
         });
 
@@ -41,5 +42,9 @@ async function postsInfo() {
         "0x4879db43ab47e71f721c05b99eb12578674c33e0"
     ]
     const res = await postToken.postsInfo(Ecosystem.FARCASTER, ids);
+    console.log(JSON.stringify(res));
+}
+async function verifyFarcasterFid() {
+    const res = await postToken.verifyFarcasterFid("0xF6fd7deEc77d7B1061435585DF1d7FDfD4682577", 129, "0xde33643575401fb04caa9a60c5cccf0b37261880");
     console.log(JSON.stringify(res));
 }

@@ -1,9 +1,9 @@
 {
-  "name": "tako-content-profile",
+  "name": "tako-post-token",
   "version": "1.0.0",
-  "main": "build/content-profile/src/index.js",
+  "main": "build/post-token/src/index.js",
   "license": "MIT",
-  "types": "build/content-profile/src/index.d.ts",
+  "types": "build/post-token/src/index.d.ts",
   "scripts": {
     "build": "yarn run rm && yarn run build-tsc",
     "rm": "rmdir /s /q .\\build",

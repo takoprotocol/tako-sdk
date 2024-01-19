@@ -82,6 +82,12 @@ class PostToken {
         const res = await post(url, body);
         return dealWithResponse(res);
     }
+    public async verifyFarcasterFid(address: string, fid: number, castId: string) {
+        const body = { address: address, fid: fid, castId: castId };
+        let url = `${this._url}/token/post/v1/${Apis.VerifyFarcaster}`;
+        const res = await post(url, body);
+        return dealWithResponse(res);
+    }
 }
 const API_PREFIX = "token/post/v1/info";
 enum Apis {
@@ -90,6 +96,7 @@ enum Apis {
     ProfileInfo = 'profile_info',
     PostInfo = 'post_info',
     PostsInfo = 'posts_info',
+    VerifyFarcaster = 'peripheral/farcaster/verify_fid',
 }
 interface ContractInfo {
     contentProfile: string,

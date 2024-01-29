@@ -1,4 +1,7 @@
-import { FarcasterPeripheral, CreateWithSig, EIP712Signature } from '../src';
+import {
+    FarcasterPeripheral, CreateWithSig, EIP712Signature, NewFarcasterPostToken,
+    Network
+} from '../src';
 import {
     getPrivateKey, hardhatKey0, hardhatKey1,
     hardhatKey2, addr0, addr1, addr2, sendTx
@@ -12,14 +15,12 @@ let key: FarcasterPeripheral;
     try {
         //tako.setProxy("http://127.0.0.1:19180");
         privateKey = await getPrivateKey();
-        //const takoKeyContract = await utils.getTakoKeyContract(Network.TESTNET);
-        //takoKeysV1 = new TakoKeysV1();
-        // = new TakoKeysV1("0x5FbDB2315678afecb367f032d93F642f64180aa3", 31337);
-        key = new FarcasterPeripheral("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512", 31337);
-        const url = "http://127.0.0.1:8545";
-        //const url = "https://optimism.publicnode.com";
+        const postToken = await NewFarcasterPostToken(Network.TESTNET);
+        key = postToken.peripheral;
+        //const url = "http://127.0.0.1:8545";
+        const url = "https://optimism.publicnode.com";
         key.provider = new ethers.JsonRpcProvider(url);
-        isRelayer().catch(error => {
+        contentAssetCore().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {

@@ -13,7 +13,7 @@ const contentProfileAbi = `
 				"type": "address"
 			}
 		],
-		"name": "bind",
+		"name": "bindWithPeripheralCreator",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -26,12 +26,6 @@ const contentProfileAbi = `
 	{
 		"anonymous": false,
 		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			},
 			{
 				"indexed": false,
 				"internalType": "uint256",
@@ -47,11 +41,11 @@ const contentProfileAbi = `
 			{
 				"indexed": false,
 				"internalType": "uint256",
-				"name": "claimable",
+				"name": "claimFee",
 				"type": "uint256"
 			}
 		],
-		"name": "BindEvent",
+		"name": "BindWithPeripheralCreatorEvent",
 		"type": "event"
 	},
 	{
@@ -70,13 +64,6 @@ const contentProfileAbi = `
 		"name": "Buy",
 		"outputs": [],
 		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "claim",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -134,6 +121,11 @@ const contentProfileAbi = `
 				"internalType": "bytes32",
 				"name": "contentIdHash",
 				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "createFee",
+				"type": "uint256"
 			}
 		],
 		"name": "create",
@@ -144,7 +136,7 @@ const contentProfileAbi = `
 				"type": "uint256"
 			}
 		],
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -222,6 +214,11 @@ const contentProfileAbi = `
 				"internalType": "bytes32",
 				"name": "contentIdHash",
 				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "createFee",
+				"type": "uint256"
 			}
 		],
 		"name": "createwithPeripheralCreator",
@@ -363,19 +360,6 @@ const contentProfileAbi = `
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "bool",
-				"name": "isOpen",
-				"type": "bool"
-			}
-		],
-		"name": "setOpenInit",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -510,6 +494,11 @@ const contentProfileAbi = `
 			},
 			{
 				"internalType": "uint256",
+				"name": "priceFactor",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
 				"name": "priceIndex",
 				"type": "uint256"
 			}
@@ -561,6 +550,12 @@ const contentProfileAbi = `
 			{
 				"indexed": false,
 				"internalType": "uint256",
+				"name": "priceFactor",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
 				"name": "priceIndex",
 				"type": "uint256"
 			}
@@ -593,6 +588,14 @@ const contentProfileAbi = `
 		],
 		"name": "WhitelistedAddressRemoved",
 		"type": "event"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "fallback"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "receive"
 	},
 	{
 		"inputs": [

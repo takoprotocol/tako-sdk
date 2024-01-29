@@ -1,4 +1,4 @@
-import { ContentProfile } from '../src';
+import { ContentProfile, NewFarcasterPostToken, Network } from '../src';
 import {
     getPrivateKey, hardhatKey0, hardhatKey1,
     hardhatKey2, addr0, addr1, addr2, sendTx
@@ -16,11 +16,12 @@ let key: ContentProfile;
         //const takoKeyContract = await utils.getTakoKeyContract(Network.TESTNET);
         //takoKeysV1 = new TakoKeysV1();
         // = new TakoKeysV1("0x5FbDB2315678afecb367f032d93F642f64180aa3", 31337);
-        key = new ContentProfile("0x5FbDB2315678afecb367f032d93F642f64180aa3", 31337);
-        const url = "http://127.0.0.1:8545";
-        //const url = "https://optimism.publicnode.com";
+        const postToken = await NewFarcasterPostToken(Network.TESTNET);
+        key = postToken.contentProfile;
+        //const url = "http://127.0.0.1:8545";
+        const url = "https://optimism.publicnode.com";
         key.provider = new ethers.JsonRpcProvider(url);
-        update().catch(error => {
+        getBuyPrice().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {
@@ -76,10 +77,11 @@ async function factor() {
     console.log(res);
 }
 async function getBuyPrice() {
-    const buyPrice = await key.getBuyPrice(1);
-    const buyPriceAfterFee = await key.getBuyPriceAfterFee(1);
+    const buyPrice = await key.getBuyPrice(0);
+    const buyPriceAfterFee = await key.getBuyPriceAfterFee(0);
     console.log(`buyPrice:${buyPrice},buyPriceAfterFee:${buyPriceAfterFee}`);
 }
+
 async function getCurrentTokenId() {
     const res = await key.getCurrentTokenId();
     console.log(res);

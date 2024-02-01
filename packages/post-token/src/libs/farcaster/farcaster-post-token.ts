@@ -13,12 +13,28 @@ class FarcasterPostToken extends PostToken {
     public get peripheral(): FarcasterPeripheral {
         return this._farcasterPeripheral
     }
-    public async verifyFarcasterFid(fid: number, castId: string) {
+    public async verifyFarcasterFid(fid: number, castId: string): Promise<FarcasterSignature> {
         const body = { fid: fid, castId: castId };
         let url = `${this._url}/token/post/v1/${Apis.VerifyFarcaster}`;
         const res = await post(url, body);
-        return PostToken.dealWithResponse(res);
+        const data = PostToken.dealWithResponse(res);
+        const converted = this.convertObjectKeysToHump(data);
+        const sig = converted as FarcasterSignature;
+        return sig;
     }
+}
+interface Signature {
+    r: string,
+    s: string,
+    v: number,
+    deadline: number,
+}
+interface FarcasterSignature {
+    chainId: number,
+    contract: string,
+    nonce: number,
+    relayer: string,
+    signature: Signature,
 }
 enum Apis {
     VerifyFarcaster = 'peripheral/farcaster/verify_fid',
@@ -35,4 +51,4 @@ async function NewFarcasterPostToken(network: Network): Promise<FarcasterPostTok
     }
     return new FarcasterPostToken(network, contractInfo);
 }
-export { FarcasterPostToken, NewFarcasterPostToken }
+export { FarcasterPostToken, NewFarcasterPostToken, FarcasterSignature, Signature }

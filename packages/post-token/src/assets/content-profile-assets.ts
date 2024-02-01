@@ -67,6 +67,13 @@ const contentProfileAbi = `
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "claim",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -509,24 +516,6 @@ const contentProfileAbi = `
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "contentProfileId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "contentUrl",
-				"type": "string"
-			}
-		],
-		"name": "updateContentInfo",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -592,6 +581,24 @@ const contentProfileAbi = `
 	{
 		"stateMutability": "payable",
 		"type": "fallback"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "contentProfileId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "contentUrl",
+				"type": "string"
+			}
+		],
+		"name": "updateContentInfo",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"stateMutability": "payable",

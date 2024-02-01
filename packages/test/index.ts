@@ -25,10 +25,15 @@ async function sendTx(abiData: string, wallet: ethers.Wallet, amount: bigint, co
     const res = await contract.provider.broadcastTransaction(signedRawTransaction);
     console.log(`${JSON.stringify(res)}`);
 }
+function stringify(data): string {
+    return JSON.stringify(data, (key, value) =>
+        typeof value === 'bigint' ? value.toString() : value
+    );
+}
 class Keys {
     public test(): string {
         return "asd";
     }
 }
 export { getPrivateKey, hardhatKey0, hardhatKey1, hardhatKey2, addr0, addr1, addr2 }
-export { sendTx }
+export { sendTx, stringify }

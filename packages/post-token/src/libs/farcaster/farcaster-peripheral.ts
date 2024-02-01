@@ -1,5 +1,5 @@
-import { BaseContract } from '../../../pkg/libs';
-import { farcasterPeripheralAbi } from '../assets';
+import { BaseContract } from '../../../../pkg/libs';
+import { farcasterPeripheralAbi } from '../../assets';
 class FarcasterPeripheral extends BaseContract {
     constructor(contractAddress: string, chainId: number) {
         super(contractAddress, chainId, farcasterPeripheralAbi);

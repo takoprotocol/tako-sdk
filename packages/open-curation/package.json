@@ -17,7 +17,6 @@
     "@lens-protocol/metadata": "^0.1.0-alpha.31",
     "axios": "^1.5.1",
     "graphql-request": "^6.1.0",
-    "node-global-proxy": "^1.0.1",
     "tako-js": "^1.0.7"
   }
 }

@@ -1,4 +1,5 @@
 import { CONSTANT, TakoOpenCuration } from '../src';
+import * as ethers from 'ethers';
 const tako = new TakoOpenCuration(CONSTANT.Network.TESTNET);
 const ecosystem = tako.lensOpenCuration;
 const url = "https://rpc.ankr.com/polygon_mumbai";
@@ -17,7 +18,7 @@ const profileId = "0x01BD";
 const pubIdWithMedia = "0x01bd-0x01-DA-84dddefe";
 const postUriWithOutMedia = "ar://jZrE6RAeDhEhPDfZgSRvqFKOA9EYQzpxdFHLdDB4510";
 const quotePostUriWithMedia = "ar://sE7gPSfgFFhStdyIMEg8KgYFWZj6dJqKRlKdyjtBdg0";
-import * as ethers from 'ethers';
+
 
 //1 0x01bd-0x01-DA-078b9925
 //2 0x01bd-0x01-DA-606ded9f
@@ -25,7 +26,7 @@ import * as ethers from 'ethers';
     try {
         //tako.setProxy("http://127.0.0.1:19180");
         privateKey = await getPrivateKey();
-        registerQuotePost().catch(error => {
+        auth().catch(error => {
             console.log(`error:${error}`);
         });
     } catch (error) {

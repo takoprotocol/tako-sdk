@@ -5,7 +5,6 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^18.7.21",
-    "node-global-proxy": "^1.0.1",
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",

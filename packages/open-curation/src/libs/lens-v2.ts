@@ -70,6 +70,7 @@ class LensProtocolV2 {
             forProfileId: profileId,
         });
         let address = profileById?.handle?.ownedBy;
+        //let address = "0xC439530f6A0582Bc09da70A3e52Ace7dF4b58A32";
         if (address) {
             const request: LensProtocol.ChallengeRequest = { for: profileId, signedBy: address };
             return await this._lensClient.authentication.generateChallenge(request);
